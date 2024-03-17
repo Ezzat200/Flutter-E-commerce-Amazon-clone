@@ -10,24 +10,26 @@ class CustomTextField extends StatelessWidget {
     required this.height,
     required this.width,
     required this.mobileController,
+     required this.hintText,
   });
 
   final double height;
   final double width;
   final TextEditingController mobileController;
-
+  final String hintText;
+  
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height * 0.08,
-      width: (width * 0.64),
+      height: height,
+      width: width ,
       child: TextFormField(
         controller: mobileController,
         cursorColor: black,
         style: theme.textTheme.bodySmall,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          hintText: 'Mobile Number',
+          hintText: hintText,
           
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),

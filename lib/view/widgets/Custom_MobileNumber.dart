@@ -55,7 +55,7 @@ class _CustomMobileNumberState extends State<CustomMobileNumber> {
             width: width * 0.02,
           ),
           CustomTextField(
-              height: height, width: width, mobileController: mobileController),
+              height: height* 0.08, width:  width *0.64, mobileController: mobileController,hintText: 'Mobile Number',),
 
         ],
       ),
