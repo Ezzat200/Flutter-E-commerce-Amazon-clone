@@ -15,7 +15,7 @@ class AmazonApp extends StatelessWidget {
     return  MaterialApp(
       theme: theme,
       debugShowCheckedModeBanner: false,
-      home:const  AuthScreen(),
+      home:  const AuthScreen(),
     );
   }
 }
