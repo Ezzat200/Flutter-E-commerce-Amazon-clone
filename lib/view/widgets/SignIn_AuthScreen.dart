@@ -130,6 +130,8 @@ if(islogin){
 
             const CustomMobileNumber(),
             CustomButton(
+              width: width*0.95,
+              height: height * 0.06,
               text: 'Continue',
             ),
             
@@ -212,6 +214,8 @@ if(islogin){
           child: const  Text('By enrolling your mobile phone number ,concent to recive automated security notifcations via text message from Amazon \n Message and data rates may apply'),
         ),
           CustomButton(
+            width: width*0.95,
+              height: height * 0.06,
             text: 'Verify mobile number',
           ),
           

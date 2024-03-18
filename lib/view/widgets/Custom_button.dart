@@ -7,9 +7,14 @@ import 'package:flutter/material.dart';
 class CustomButton extends StatelessWidget {
    CustomButton( {
     required this.text,
-    this.ontap,  this.isloading=false
+    this.ontap,  this.isloading=false,
+    required this.height,
+    required this.width
    });
    final bool isloading;
+   final double height;
+   final double width;
+
 String text;
 VoidCallback?ontap;
   @override
@@ -18,8 +23,8 @@ VoidCallback?ontap;
 onTap: ontap,
       child: Container(
         
-        width: MediaQuery.of(context).size.width * 0.90,
-        height: MediaQuery.of(context).size.height * 0.06,
+        width: width,
+        height: height,
         decoration: BoxDecoration(
           color: amber,
           borderRadius: BorderRadius.circular(5),
