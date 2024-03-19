@@ -2,6 +2,7 @@
 import 'package:amazon_clone/controller/provider/auth_provider/auth_provider.dart';
 import 'package:amazon_clone/firebase_options.dart';
 import 'package:amazon_clone/utils/theme.dart';
+import 'package:amazon_clone/view/User/user_presestant_nav_bar/user_bottom_nav_bar.dart';
 import 'package:amazon_clone/view/auth_screen/SingnIn_Logic.dart';
 
 import 'package:amazon_clone/view/auth_screen/auth_screens.dart';
@@ -33,7 +34,8 @@ class AmazonApp extends StatelessWidget {
       child: MaterialApp(
         theme: theme,
         debugShowCheckedModeBanner: false,
-        home:  const SigninLogic()
+        // home:  const SigninLogic()
+        home:const UserBottomNavBar(),
       ),
     );
   }

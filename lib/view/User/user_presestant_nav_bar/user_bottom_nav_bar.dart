@@ -42,15 +42,15 @@ const MenueScreen()
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.shopping_basket),
           title: "Cart",
-          activeColorPrimary: Colors.blueAccent,
-          inactiveColorPrimary: Colors.grey,
+          activeColorPrimary: Colors.teal,
+          inactiveColorPrimary: Colors.black,
         
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(Icons.menu),
           title: "Menu",
-          activeColorPrimary: Colors.deepOrange,
-          inactiveColorPrimary: Colors.grey,
+          activeColorPrimary: Colors.teal,
+          inactiveColorPrimary: Colors.black,
         
         ),
        
