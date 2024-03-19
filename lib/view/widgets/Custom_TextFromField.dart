@@ -1,7 +1,7 @@
 
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {

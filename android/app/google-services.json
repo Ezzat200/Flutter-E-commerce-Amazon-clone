@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "316987962943",
+    "project_id": "fir-fcf53",
+    "storage_bucket": "fir-fcf53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316987962943:android:83dc79dc7404c9d9b2ea8a",
+        "android_client_info": {
+          "package_name": "com.example.amazon_clone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWR3QwvRAz3xPtWcAxul2113i7UfSKArY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

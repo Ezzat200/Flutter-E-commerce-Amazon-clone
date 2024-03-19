@@ -15,7 +15,7 @@ class CustomMobileNumber extends StatefulWidget {
 }
 
 class _CustomMobileNumberState extends State<CustomMobileNumber> {
-  String currentCountryCode = '+02';
+  String currentCountryCode = '+91';
   TextEditingController mobileController = TextEditingController();
   @override
   Widget build(BuildContext context) {

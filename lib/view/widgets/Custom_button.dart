@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-   CustomButton( {
+  const CustomButton( {
     required this.text,
     this.ontap,  this.isloading=false,
     required this.height,
@@ -15,12 +15,13 @@ class CustomButton extends StatelessWidget {
    final double height;
    final double width;
 
-String text;
-VoidCallback?ontap;
+final String text;
+final VoidCallback?ontap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
 onTap: ontap,
+
       child: Container(
         
         width: width,

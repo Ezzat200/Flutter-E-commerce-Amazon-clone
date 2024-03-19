@@ -1,91 +1,117 @@
-import 'package:amazon_clone/utils/colors.dart';
-import 'package:amazon_clone/utils/theme.dart';
+
+
+import 'package:amazon_clone/controller/services/auth_services/auth_services.dart';
+
 import 'package:amazon_clone/view/widgets/Custom_TextFromField.dart';
 import 'package:amazon_clone/view/widgets/Custom_button.dart';
 import 'package:amazon_clone/view/widgets/bottom_authScreen.dart';
-
 import 'package:flutter/material.dart';
 
-class OTPScreen extends StatelessWidget {
-  const OTPScreen({super.key});
+
+
+import '../../utils/colors.dart';
+
+class OTPScreen extends StatefulWidget {
+  OTPScreen({super.key, required this.mobileNumber});
+  String mobileNumber;
 
   @override
+  State<OTPScreen> createState() => _OTPScreenState();
+}
+
+class _OTPScreenState extends State<OTPScreen> {
+  TextEditingController otpController = TextEditingController();
+  @override
   Widget build(BuildContext context) {
-    TextEditingController mobileController = TextEditingController();
-
-    final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-
+    final width = MediaQuery.of(context).size.width;
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
-        appBar: AppBar(
-            backgroundColor: Colors.white,
-            centerTitle: true,
-            title: Image(
-              image: const AssetImage('assets/images/amazon_splash_screen.png'),
-              height: MediaQuery.of(context).size.width,
-            )),
-        body: ListView(
-          children:[ Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: width * 0.03, vertical: height * 0.01),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Authentication rqeuired',
-                  style: theme.textTheme.displayLarge!
-                      .copyWith(fontWeight: FontWeight.bold),
+      appBar: AppBar(
+        backgroundColor: white,
+        centerTitle: true,
+        title: Image(
+          image: AssetImage('assets/images/amazon_splash_screen.png'),
+          height: height * 0.5,
+        ),
+      ),
+      body: SafeArea(
+        child: Container(
+          height: height,
+          width: width,
+          padding: EdgeInsets.symmetric(
+            horizontal: width * 0.03,
+            vertical: height * 0.02,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Authentication Required',
+                style: textTheme.displayMedium!.copyWith(
+                  fontWeight: FontWeight.bold,
                 ),
-                SizedBox(
-                  height: height * 0.01,
-                ),
-                Row(
+              ),
+             
+              SizedBox(height: height * 0.01,),
+              RichText(
+                text: TextSpan(
                   children: [
-                    Text(
-                      '+201212527183',
-                      style: theme.textTheme.displaySmall!
-                          .copyWith(fontWeight: FontWeight.bold),
+                    TextSpan(
+                      text: widget.mobileNumber,
+                      style: textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    Text(
-                      ' change',
-                      style: theme.textTheme.bodySmall,
+                    TextSpan(
+                      text: ' Change',
+                      style: textTheme.bodyMedium,
                     ),
                   ],
                 ),
-                Text(
-                  ' We have sent a One Time Password (OTP) to the mobile number above. please enter it to complete vertification ',
-                  style: theme.textTheme.displaySmall,
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                CustomTextField(
-                    height: height * 0.08,
-                    width: width * 0.95,
-                    mobileController: mobileController,
-                    hintText: 'Enter OTP'),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                CustomButton(
-                    width: width * 0.95, height: height * 0.06, text: 'Continue'),
-                SizedBox(
-                  height: height * 0.03,
-                ),
-                Center(
-                  child: Text(
-                    ' Resend OTP',
-                    style: theme.textTheme.bodyMedium!
-                        .copyWith(color: blue, fontWeight: FontWeight.bold),
+              ),
+             
+              SizedBox(height: height * 0.02,),
+              Text(
+                'We have send a One Time Password (OTP) to the mobile no. above. Please enter it to complete verification.',
+                style: textTheme.bodyMedium,
+              ),
+              
+              SizedBox(height: height * 0.02,),
+              CustomTextField(height: height*0.06, width: width*0.9, mobileController: otpController, hintText: 'Enter OTP'),
+              SizedBox(height:height * 0.01 ,),
+             CustomButton(
+              
+                ontap: () {
+                  AuthServices.verifyOTP(
+                    context: context,
+                    otp: otpController.text.trim(),
+                  );
+                },
+              text: 'Verify', height: height*0.06, width: width*0.9),
+          
+              SizedBox(height:  height * 0.01,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'Resend OTP',
+                      style: textTheme.bodyMedium!.copyWith(
+                        color: blue,
+                      ),
+                    ),
                   ),
-                ),
-             SizedBox(height: height *0.05,),
-          
-                BottomAuthScreen(width: width, height: height)
-          
-              ],
-            ),
+                ],
+              ),
+             
+              SizedBox(height: height * 0.02,),
+              BottomAuthScreen(width: width, height: height)
+            ],
           ),
-        ]));
+        ),
+      ),
+    );
   }
 }
