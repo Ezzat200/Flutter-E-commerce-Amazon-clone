@@ -28,15 +28,15 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  carousel_slider: ^4.2.1
+  country_picker: ^2.0.25
+  cupertino_icons: ^1.0.6
+  firebase_auth: ^4.17.9
+  firebase_core: ^2.27.1
   flutter:
     sdk: flutter
   page_transition: ^2.1.0
-  firebase_core: ^2.27.1
-  firebase_auth: ^4.17.9
-  cupertino_icons: ^1.0.6
-  country_picker: ^2.0.25
-
-
+  persistent_bottom_nav_bar: ^5.0.2
   provider: ^6.1.2
 
 dev_dependencies:
