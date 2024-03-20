@@ -3,9 +3,7 @@ import 'package:amazon_clone/controller/provider/auth_provider/auth_provider.dar
 import 'package:amazon_clone/firebase_options.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/User/user_presestant_nav_bar/user_bottom_nav_bar.dart';
-import 'package:amazon_clone/view/auth_screen/SingnIn_Logic.dart';
 
-import 'package:amazon_clone/view/auth_screen/auth_screens.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
