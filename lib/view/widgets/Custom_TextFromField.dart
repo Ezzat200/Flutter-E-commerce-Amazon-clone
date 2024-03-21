@@ -11,19 +11,21 @@ class CustomTextField extends StatelessWidget {
     required this.width,
     required this.mobileController,
      required this.hintText,
+     this.readOnly=false
   });
 
   final double height;
   final double width;
   final TextEditingController mobileController;
   final String hintText;
-  
+  final bool readOnly;
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
       width: width ,
       child: TextFormField(
+        readOnly: readOnly,
         controller: mobileController,
         cursorColor: black,
         style: theme.textTheme.bodySmall,

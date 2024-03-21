@@ -1,4 +1,11 @@
+import 'package:amazon_clone/utils/colors.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+FirebaseAuth auth = FirebaseAuth.instance;
+FirebaseFirestore firestore = FirebaseFirestore.instance;
 List<String> categories = [
   'Prime',
   'Electronics',
@@ -66,3 +73,15 @@ List<String> productCategories = [
   'Books',
   'More'
 ];
+
+showToast({required BuildContext context,required String message}){
+  return Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_SHORT,
+    gravity: ToastGravity.TOP,
+    timeInSecForIosWeb: 1,
+    backgroundColor: white,
+    textColor: black,
+    fontSize: 16.0,
+    );
+}

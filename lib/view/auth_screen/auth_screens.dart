@@ -38,7 +38,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   bool inLogin = true;
-  String currentCountryCode = '+91';
+  String currentCountryCode = '+20';
   TextEditingController mobileController = TextEditingController();
   TextEditingController nameController = TextEditingController();
 
