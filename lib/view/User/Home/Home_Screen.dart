@@ -1,11 +1,7 @@
-import 'dart:developer';
 
-import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/view/widgets/Custom_Nav_Bar.dart';
-import 'package:amazon_clone/view/widgets/Custom_TextFromField.dart';
 import 'package:amazon_clone/view/widgets/body_HomeScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

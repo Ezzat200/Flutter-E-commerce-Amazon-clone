@@ -1,7 +1,4 @@
-import 'package:amazon_clone/utils/colors.dart';
-import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/widgets/Body_UserScreen.dart';
-import 'package:amazon_clone/view/widgets/Custom_Hello_User.dart';
 import 'package:amazon_clone/view/widgets/Custom_Navbar_UserScreen.dart';
 import 'package:flutter/material.dart';
 

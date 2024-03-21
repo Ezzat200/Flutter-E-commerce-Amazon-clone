@@ -1,5 +1,4 @@
 
-import 'package:amazon_clone/utils/theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomGridView extends StatelessWidget {
