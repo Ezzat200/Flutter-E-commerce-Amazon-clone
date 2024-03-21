@@ -14,8 +14,8 @@ class BodyMenueScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children:[ Container(
+    return SingleChildScrollView(
+      child: Container(
         width: width,
        
         padding: EdgeInsets.symmetric(horizontal: width * 0.03, vertical: 0.02),
@@ -25,7 +25,8 @@ class BodyMenueScreen extends StatelessWidget {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight)),
                 child: Column(
-                  children: [Container(
+                  children: [
+                    Container(
                     child: 
                       GridView.builder(
                         itemCount: 18,
@@ -57,8 +58,8 @@ class BodyMenueScreen extends StatelessWidget {
                     width: width,
                     height: height*0.06,
                     margin: EdgeInsets.symmetric(vertical: height*0.005),
-                    padding: EdgeInsets.symmetric(vertical: height*0.005,horizontal: width*0.03),
-    
+                    padding: EdgeInsets.symmetric(vertical: height*0.007,horizontal: width*0.03),
+          
                     decoration: BoxDecoration(
                     color: white,
                       borderRadius: BorderRadius.circular(10),
@@ -75,7 +76,6 @@ class BodyMenueScreen extends StatelessWidget {
                   ]
                 )
       ),
-      ]
     );
   }
 }
