@@ -83,7 +83,7 @@ class _UserDataInputScreenState extends State<UserDataInputScreen> {
                      CustomButton(
                       ontap: () async{
                    UserModel userModel=     UserModel(name: nameController.text.trim(),mobileNum: phoneController.text.trim(),userType: 'user',);
-                       await UserDtatCrud.addNewUser(userModel: userModel, context: context) ;
+                       await UserDataCRUD.addNewUser(userModel: userModel, context: context) ;
                       },
                       text: 'Proceed',
                        height: height*0.06,

@@ -1,7 +1,9 @@
 
+import 'package:amazon_clone/controller/provider/address_provider.dart';
 import 'package:amazon_clone/controller/provider/auth_provider/auth_provider.dart';
 import 'package:amazon_clone/firebase_options.dart';
 import 'package:amazon_clone/utils/theme.dart';
+import 'package:amazon_clone/view/User/adress_Screen/adress_Screen.dart';
 import 'package:amazon_clone/view/User/user_data_screen/user_data_input_screen.dart';
 import 'package:amazon_clone/view/User/user_presestant_nav_bar/user_bottom_nav_bar.dart';
 import 'package:amazon_clone/view/auth_screen/SingnIn_Logic.dart';
@@ -28,7 +30,9 @@ class AmazonApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MultiProvider(
       providers: [
-                 ChangeNotifierProvider<AutthProvider>(create: (_)=>AutthProvider())
+           ChangeNotifierProvider<AutthProvider>(create: (_)=>AutthProvider()),
+           ChangeNotifierProvider<AddressProvider>(create: (_)=>AddressProvider())
+          
       ],
     
       child: MaterialApp(
@@ -37,6 +41,7 @@ class AmazonApp extends StatelessWidget {
         home:  const SigninLogic()
         // home:const UserBottomNavBar(),
         // home: const UserDataInputScreen(),
+        // home: const AdressScreen(),
       ),
     );
   }

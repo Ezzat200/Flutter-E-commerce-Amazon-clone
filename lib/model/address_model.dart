@@ -11,17 +11,19 @@ class AddressModel {
   String ? pincode;
   String ? town;
   String ? state;
+  String ? docID;
   bool ? isDefault;
   AddressModel({
-     this.name,
-     this.mobileNumber,
-     this.houseNumber,
-     this.area,
-     this.landMark,
-     this.pincode,
-     this.town,
-     this.state,
-     this.isDefault,
+    this.name,
+    this.mobileNumber,
+    this.houseNumber,
+    this.area,
+    this.landMark,
+    this.pincode,
+    this.town,
+    this.state,
+    this.docID,
+    this.isDefault,
   });
   
 
@@ -36,6 +38,7 @@ class AddressModel {
       'pincode': pincode,
       'town': town,
       'state': state,
+      'docID':docID,
       'isDefault': isDefault
     };
   }
@@ -50,6 +53,7 @@ class AddressModel {
       pincode: map['pincode'] != null ? map['pincode'] as String : null,
       town: map['town'] != null ?  map['town'] as String : null,
       state: map['state'] != null ? map['state'] as String : null,
+      docID: map['docID'] != null ? map['docID'] as String : null,
       isDefault: map['isDefault'] as bool,
     );
   }

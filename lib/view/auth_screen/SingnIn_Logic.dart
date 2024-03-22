@@ -2,7 +2,6 @@
 
 import 'package:amazon_clone/controller/services/auth_services/auth_services.dart';
 import 'package:amazon_clone/controller/services/user_data_crud_services/user_data_Crud_services.dart';
-import 'package:amazon_clone/view/User/Home/Home_Screen.dart';
 import 'package:amazon_clone/view/User/user_data_screen/user_data_input_screen.dart';
 import 'package:amazon_clone/view/User/user_presestant_nav_bar/user_bottom_nav_bar.dart';
 import 'package:amazon_clone/view/auth_screen/auth_screens.dart';
@@ -18,7 +17,7 @@ class SigninLogic extends StatefulWidget {
 
 class _SigninLogicState extends State<SigninLogic> {
   checkUsre() async {
-    bool userAlreadyThere = await UserDtatCrud.checkUser();
+    bool userAlreadyThere = await UserDataCRUD.checkUser();
     if (userAlreadyThere ==true ) {
       Navigator.push(
         context,
