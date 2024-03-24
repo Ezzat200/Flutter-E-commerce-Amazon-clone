@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:amazon_clone/controller/provider/product_provider/product_provider.dart';
 import 'package:amazon_clone/model/product_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,7 +17,7 @@ import '../../../constants/constants.dart';
 
 class ProductServices {
   static final picker = ImagePicker();
-  static Future getImages({required BuildContext context}) async {
+ static Future getImages({required BuildContext context}) async {
     List<File> selectedImages = [];
     final pickedFile = await picker.pickMultiImage(
       imageQuality: 100,
@@ -35,7 +36,7 @@ class ProductServices {
     return selectedImages;
   }
 
-  static uploadImageToFirebaseStorage({
+static uploadImageToFirebaseStorage({
     required List<File> images,
     required BuildContext context,
   }) async {
@@ -50,12 +51,13 @@ class ProductServices {
       String imageURL = await ref.getDownloadURL();
       imagesURL.add(imageURL);
     });
-log(imagesURL.toList().toString());
+
     context
-        .read<ProductProvider>().updateProductImagesURL(imageURLs: imagesURL);
-    
+        .read<SellerProductProvider>()
+        .updateProductImagesURL(imageURLs: imagesURL);
   }
 
+  
   static Future addProduct({
     required BuildContext context,
     required ProductModel productModel,
@@ -67,39 +69,40 @@ log(imagesURL.toList().toString());
           .set(productModel.toMap())
           .whenComplete(() {
         log('Data Added');
-        // context.read<ProductProvider>().fecthSellerProducts();
+        context.read<SellerProductProvider>().fecthSellerProducts();
         Navigator.pop(context);
 
-        // showToast(
-        //     context: context, message: 'Product Added Successful');
+        showToast(
+            context: context, message: 'Product Added Successful');
       });
     } catch (e) {
       log(e.toString());
-     showToast(context: context, message: e.toString());
+      showToast(context: context, message: e.toString());
     }
   }
 
-  // static Future<List<ProductModel>> getSellersProducts() async {
-  //   List<ProductModel> sellersProducts = [];
+  static Future<List<ProductModel>> getSellersProducts() async {
+    List<ProductModel> sellersProducts = [];
 
-  //   try {
-  //     final QuerySnapshot<Map<String, dynamic>> snapshot = await firestore
-  //         .collection('Products')
-  //         .orderBy('uploadedAt', descending: true)
-  //         .where('productSellerID', isEqualTo: auth.currentUser!.phoneNumber)
-  //         .get();
+    try {
+      final QuerySnapshot<Map<String, dynamic>> snapshot = await firestore
+          .collection('Products')
+          .orderBy('uploadedAt', descending: true)
+          .where('productSellerID', isEqualTo: auth.currentUser!.phoneNumber)
+          .get();
 
-  //     snapshot.docs.forEach((element) {
-  //       sellersProducts.add(ProductModel.fromMap(element.data()));
-  //     });
-  //     log(sellersProducts.toList().toString());
-  //   } catch (e) {
-  //     log('error Found');
-  //     log(e.toString());
-  //   }
-  //   log(sellersProducts.toList().toString());
-  //   return sellersProducts;
-  // }
+      snapshot.docs.forEach((element) {
+        sellersProducts.add(ProductModel.fromMap(element.data()));
+      });
+      log(sellersProducts.toList().toString());
+    } catch (e) {
+      log('error Found');
+      log(e.toString());
+    }
+    log(sellersProducts.toList().toString());
+    return sellersProducts;
+  }
+
 
   // static Future addSalesData({
   //   required BuildContext context,

@@ -35,18 +35,18 @@ class AmazonApp extends StatelessWidget {
       providers: [
            ChangeNotifierProvider<AutthProvider>(create: (_)=>AutthProvider()),
            ChangeNotifierProvider<AddressProvider>(create: (_)=>AddressProvider()),
-           ChangeNotifierProvider<ProductProvider>(create: (_)=>ProductProvider())
+           ChangeNotifierProvider<SellerProductProvider>(create: (_)=>SellerProductProvider())
           
       ],
     
       child: MaterialApp(
         theme: theme,
         debugShowCheckedModeBanner: false,
-        // home:  const SigninLogic()
+        home:  const SigninLogic()
         // home:const UserBottomNavBar(),
         // home: const UserDataInputScreen(),
         // home: const AdressScreen(),
-        home: const SellerBootomNavBar(),
+        // home: const SellerBootomNavBar(),
         // home: const AddProductsScreen(),
       ),
     );

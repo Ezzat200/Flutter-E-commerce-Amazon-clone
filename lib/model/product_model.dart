@@ -11,12 +11,12 @@ class ProductModel {
   final String? countryOfOrigin;
   final String? specifications;
   final double? price;
-  // final double? discountedPrice;
+  final double? discountedPrice;
   final String? productID;
   final String? productSellerID;
   final bool? inStock;
-  // final int? discountPercentage;
-  // final DateTime? uploadedAt;
+  final int? discountPercentage;
+  final DateTime? uploadedAt;
   ProductModel({
     this.imagesURL,
     this.name,
@@ -27,12 +27,12 @@ class ProductModel {
     this.countryOfOrigin,
     this.specifications,
     this.price,
-    // this.discountedPrice,
+    this.discountedPrice,
     this.productID,
     this.productSellerID,
     this.inStock,
-    // this.discountPercentage,
-    // this.uploadedAt,
+    this.discountPercentage,
+    this.uploadedAt,
   });
 
   Map<String, dynamic> toMap() {
@@ -46,12 +46,12 @@ class ProductModel {
       'countryOfOrigin': countryOfOrigin,
       'specifications': specifications,
       'price': price,
-      // 'discountedPrice': discountedPrice,
+      'discountedPrice': discountedPrice,
       'productID': productID,
       'productSellerID': productSellerID,
       'inStock': inStock,
-      // 'discountPercentage': discountPercentage,
-      // 'uploadedAt': uploadedAt?.millisecondsSinceEpoch,
+      'discountPercentage': discountPercentage,
+      'uploadedAt': uploadedAt?.millisecondsSinceEpoch,
     };
   }
 
@@ -75,18 +75,18 @@ class ProductModel {
           ? map['specifications'] as String
           : null,
       price: map['price'] != null ? map['price'] as double : null,
-      // discountedPrice: map['discountedPrice'] != null
-      //     ? map['discountedPrice'] as double
-      //     : null,
+      discountedPrice: map['discountedPrice'] != null
+          ? map['discountedPrice'] as double
+          : null,
       productID: map['productID'] != null ? map['productID'] as String : null,
       productSellerID: map['productSellerID'] != null
           ? map['productSellerID'] as String
           : null,
       inStock: map['inStock'] != null ? map['inStock'] as bool : null,
-      // uploadedAt: map['uploadedAt'] != null
-      //     ? DateTime.fromMillisecondsSinceEpoch(map['uploadedAt'] as int)
-      //     : null,
-      // discountPercentage: map['discountPercentage'] != null ? map['discountPercentage'] as int : null,
+      uploadedAt: map['uploadedAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['uploadedAt'] as int)
+          : null,
+      discountPercentage: map['discountPercentage'] != null ? map['discountPercentage'] as int : null,
 
     );
   }

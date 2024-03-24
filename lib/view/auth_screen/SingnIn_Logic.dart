@@ -1,10 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:amazon_clone/controller/services/auth_services/auth_services.dart';
 import 'package:amazon_clone/controller/services/user_data_crud_services/user_data_Crud_services.dart';
 import 'package:amazon_clone/view/User/user_data_screen/user_data_input_screen.dart';
 import 'package:amazon_clone/view/User/user_presestant_nav_bar/user_bottom_nav_bar.dart';
 import 'package:amazon_clone/view/auth_screen/auth_screens.dart';
+import 'package:amazon_clone/view/seller/seller_presistant_nav_bar/seller_bootom_navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -19,13 +22,21 @@ class _SigninLogicState extends State<SigninLogic> {
   checkUsre() async {
     bool userAlreadyThere = await UserDataCRUD.checkUser();
     if (userAlreadyThere ==true ) {
-      Navigator.push(
+      bool userIsSeller = await UserDataCRUD.userIsSeller();
+      log('start');
+      log(userIsSeller.toString());
+      if(userIsSeller == true){
+        Navigator.push(context,PageTransition(child:const SellerBootomNavBar(), type: PageTransitionType.rightToLeft));
+      }else{
+Navigator.push(
         context,
         PageTransition(
           child: const UserBottomNavBar(),
           type: PageTransitionType.rightToLeft,
         ),
       );
+      }
+      
     } else{
       Navigator.push(
         context,

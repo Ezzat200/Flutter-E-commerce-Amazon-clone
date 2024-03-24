@@ -90,14 +90,14 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                 horizontal: width * 0.03, vertical: height * 0.02),
             child: Column(
               children: [
-                Consumer<ProductProvider>(
+                Consumer<SellerProductProvider>(
                     builder: (context, productProvider, child) {
                   return Builder(builder: (context) {
                     if (productProvider.productImages.isEmpty) {
                       return GestureDetector(
                         onTap: () {
                           context
-                              .read<ProductProvider>()
+                              .read<SellerProductProvider>()
                               .fetchProductImagesFromGallery(context: context);
                         },
                         child: Container(
@@ -126,7 +126,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                       );
                     } else {
                       List<File> images =
-                          context.read<ProductProvider>().productImages;
+                          context.read<SellerProductProvider>().productImages;
                       return CarouselSlider(
                           items: images.map((i) {
                             return Builder(builder: (BuildContext context) {
@@ -232,7 +232,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                     CustomButton(
                         ontap: () async {
                           if (context
-                              .read<ProductProvider>()
+                              .read<SellerProductProvider>()
                               .productImages
                               .isNotEmpty) {
                             setState(() {
@@ -240,11 +240,11 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                             });
                             await ProductServices.uploadImageToFirebaseStorage(
                                 images: context
-                                    .read<ProductProvider>()
+                                    .read<SellerProductProvider>()
                                     .productImages,
                                 context: context);
                             List<String> imagesURLs = context
-                                .read<ProductProvider>()
+                                .read<SellerProductProvider>()
                                 .productImagesURL;
                             Uuid uuid = Uuid();
                             String sellerID = auth.currentUser!.phoneNumber!;
