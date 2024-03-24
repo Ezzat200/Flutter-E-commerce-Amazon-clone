@@ -1,13 +1,12 @@
-
+// ignore_for_file: sort_child_properties_last
 
 import 'package:amazon_clone/controller/services/auth_services/auth_services.dart';
+import 'package:amazon_clone/utils/theme.dart';
 
 import 'package:amazon_clone/view/widgets/Custom_TextFromField.dart';
 import 'package:amazon_clone/view/widgets/Custom_button.dart';
 import 'package:amazon_clone/view/widgets/bottom_authScreen.dart';
 import 'package:flutter/material.dart';
-
-
 
 import '../../utils/colors.dart';
 
@@ -52,8 +51,9 @@ class _OTPScreenState extends State<OTPScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-             
-              SizedBox(height: height * 0.01,),
+              SizedBox(
+                height: height * 0.01,
+              ),
               RichText(
                 text: TextSpan(
                   children: [
@@ -70,27 +70,40 @@ class _OTPScreenState extends State<OTPScreen> {
                   ],
                 ),
               ),
-             
-              SizedBox(height: height * 0.02,),
+              SizedBox(
+                height: height * 0.02,
+              ),
               Text(
                 'We have send a One Time Password (OTP) to the mobile no. above. Please enter it to complete verification.',
                 style: textTheme.bodyMedium,
               ),
-              
-              SizedBox(height: height * 0.02,),
-              CustomTextField(height: height*0.06, width: width*0.9, mobileController: otpController, hintText: 'Enter OTP'),
-              SizedBox(height:height * 0.01 ,),
-             CustomButton(
-              
-                ontap: () {
-                  AuthServices.verifyOTP(
-                    context: context,
-                    otp: otpController.text.trim(),
-                  );
-                },
-              text: 'Verify', height: height*0.06, width: width*0.9),
-          
-              SizedBox(height:  height * 0.01,),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              CustomTextField(
+                  height: height * 0.06,
+                  width: width * 0.9,
+                  mobileController: otpController,
+                  hintText: 'Enter OTP'),
+              SizedBox(
+                height: height * 0.01,
+              ),
+              CustomButton(
+                  ontap: () {
+                    AuthServices.verifyOTP(
+                      context: context,
+                      otp: otpController.text.trim(),
+                    );
+                  },
+                  child: Text(
+                    'Verify',
+                    style: theme.textTheme.displaySmall,
+                  ),
+                  height: height * 0.06,
+                  width: width * 0.9),
+              SizedBox(
+                height: height * 0.01,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -105,8 +118,9 @@ class _OTPScreenState extends State<OTPScreen> {
                   ),
                 ],
               ),
-             
-              SizedBox(height: height * 0.02,),
+              SizedBox(
+                height: height * 0.02,
+              ),
               BottomAuthScreen(width: width, height: height)
             ],
           ),

@@ -6,16 +6,18 @@ import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton( {
-    required this.text,
+    // required this.text,
     this.ontap,  this.isloading=false,
     required this.height,
-    required this.width
+    required this.width,
+    required this.child
    });
    final bool isloading;
    final double height;
    final double width;
+   final Widget child;
 
-final String text;
+// final String text;
 final VoidCallback?ontap;
   @override
   Widget build(BuildContext context) {
@@ -32,11 +34,9 @@ onTap: ontap,
               
         ),
               
-        child: 
-        Center(
-          child: Text( text,
-          
-          style: theme.textTheme.displaySmall,),
+        
+       child: Center(
+          child:child,
         ),
       ),
     );

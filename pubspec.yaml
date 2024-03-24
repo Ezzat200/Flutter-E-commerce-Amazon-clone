@@ -34,9 +34,11 @@ dependencies:
   cupertino_icons: ^1.0.6
   firebase_auth: ^4.17.9
   firebase_core: ^2.27.1
+  firebase_storage: ^11.6.10
   flutter:
     sdk: flutter
   fluttertoast: ^8.2.4
+  image_picker: ^0.8.8
   page_transition: ^2.1.0
   persistent_bottom_nav_bar: ^5.0.2
   provider: ^6.1.2

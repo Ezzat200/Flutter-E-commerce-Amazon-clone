@@ -1,5 +1,8 @@
+// ignore_for_file: sort_child_properties_last
+
 import 'package:amazon_clone/controller/services/auth_services/auth_services.dart';
 import 'package:amazon_clone/utils/colors.dart';
+import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/widgets/Custom_RitchText.dart';
 import 'package:amazon_clone/view/widgets/Custom_TextFromField.dart';
 import 'package:amazon_clone/view/widgets/Custom_button.dart';
@@ -92,7 +95,6 @@ class _CreateAccountState extends State<CreateAccount> {
                       height: height * 0.01,
                     ),
                     CustomTextField(
-                        
                         height: height * 0.07,
                         width: width * 0.9,
                         mobileController: mobileController,
@@ -135,7 +137,6 @@ class _CreateAccountState extends State<CreateAccount> {
                           ),
                         ),
                         CustomTextField(
-                           
                             height: height * 0.06,
                             width: width * 0.65,
                             mobileController: mobileController,
@@ -155,7 +156,10 @@ class _CreateAccountState extends State<CreateAccount> {
                               mobileNo:
                                   '+$currentCountryCode${mobileController.text.trim()}');
                         },
-                        text: 'Continue',
+                        child: Text(
+                          'continue',
+                          style: theme.textTheme.displaySmall,
+                        ),
                         height: height * 0.07,
                         width: width * 0.9),
                     SizedBox(height: height * 0.02),
@@ -364,7 +368,6 @@ class _CreateAccountState extends State<CreateAccount> {
                         ),
                       ),
                       CustomTextField(
-                          
                           height: height * 0.06,
                           width: width * 0.65,
                           mobileController: mobileController,
@@ -381,7 +384,10 @@ class _CreateAccountState extends State<CreateAccount> {
                             mobileNo:
                                 '$currentCountryCode${mobileController.text.trim()}');
                       },
-                      text: 'Continue',
+                      child: Text(
+                        'Continue',
+                        style: theme.textTheme.displaySmall,
+                      ),
                       height: height * 0.07,
                       width: width * 0.9),
                   SizedBox(

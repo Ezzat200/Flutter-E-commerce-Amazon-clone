@@ -1,3 +1,5 @@
+// ignore_for_file: sort_child_properties_last
+
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/widgets/CartListView.dart';
@@ -78,7 +80,11 @@ class CartScreen extends StatelessWidget {
                   height: height * 0.04,
                 ),
                 CustomButton(
-                    text: 'Proceed to Buy (2:items)',
+                    child: Text(
+                      'Proceed to Buy (2:items)',
+                      style: theme.textTheme.displaySmall,
+                    ),
+                    // text: 'Proceed to Buy (2:items)',
                     height: height * 0.07,
                     width: width),
                 SizedBox(
