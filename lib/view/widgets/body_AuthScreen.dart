@@ -39,7 +39,7 @@ class BodyAuthScreen extends StatelessWidget {
             SizedBox(height:height * 0.02),
             
     
-           CreateAccount(),
+         const  CreateAccount(),
             
             SizedBox(height: height * 0.05,),
              BottomAuthScreen(width: width*0.9, height: 2)

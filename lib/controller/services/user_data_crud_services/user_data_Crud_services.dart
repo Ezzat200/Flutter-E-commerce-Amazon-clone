@@ -28,7 +28,7 @@ class UserDataCRUD {
         Navigator.pushAndRemoveUntil(
             context,
             PageTransition(
-                child: const SigninLogic(),
+                child: const SignInLogic(),
                 type: PageTransitionType.rightToLeft),
             (route) => false);
       });

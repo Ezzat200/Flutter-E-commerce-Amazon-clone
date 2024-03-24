@@ -42,7 +42,7 @@ class AmazonApp extends StatelessWidget {
       child: MaterialApp(
         theme: theme,
         debugShowCheckedModeBanner: false,
-        home:  const SigninLogic()
+        home:  const SignInLogic()
         // home:const UserBottomNavBar(),
         // home: const UserDataInputScreen(),
         // home: const AdressScreen(),

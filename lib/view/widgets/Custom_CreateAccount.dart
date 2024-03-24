@@ -271,7 +271,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                            text: 'Create Account. ',
+                            text: 'Sign In. ',
                             style: textTheme.bodyMedium!
                                 .copyWith(fontWeight: FontWeight.bold)),
                         TextSpan(
@@ -323,7 +323,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                 style: textTheme.bodyMedium!
                                     .copyWith(fontWeight: FontWeight.bold)),
                             TextSpan(
-                                text: 'New to Amazon? ',
+                                text: 'Alredy a account? ',
                                 style: textTheme.bodyMedium)
                           ],
                         ),

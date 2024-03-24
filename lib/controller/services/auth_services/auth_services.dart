@@ -70,7 +70,7 @@ class AuthServices {
       Navigator.push(
           context,
           PageTransition(
-            child: const SigninLogic(),
+            child: const SignInLogic(),
             type: PageTransitionType.rightToLeft,
           ));
     } catch (e) {
