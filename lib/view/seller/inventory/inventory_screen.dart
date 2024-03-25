@@ -77,7 +77,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                           ProductModel currentModel =
                               sellerProductProvider.products[index];
                           return Container(
-                            height: height * 0.3,
+                            height: height * 0.4,
                             width: width,
                             margin: EdgeInsets.symmetric(
                               vertical: height * 0.01,
@@ -100,7 +100,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                                   
                                   options: CarouselOptions(
                                     height: height * 0.2,
-                                    autoPlay: true,
+                                    autoPlay: false,
                                     viewportFraction: 1,
                                   ),
                                   items: currentModel.imagesURL!.map((i) {
@@ -160,7 +160,13 @@ class _InventoryScreenState extends State<InventoryScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                         
+                                           Text(
+                                            '\$ ${currentModel.discountPercentage.toString()}',
+                                            style:theme.textTheme.labelMedium!
+                                                .copyWith(
+                                                    color: grey,
+                                                   ),
+                                          ),
                                           Text(
                                             '\$ ${currentModel.price.toString()}',
                                             style:theme.textTheme.labelMedium!

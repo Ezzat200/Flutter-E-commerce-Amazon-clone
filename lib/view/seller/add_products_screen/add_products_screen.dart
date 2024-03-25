@@ -32,8 +32,8 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
   TextEditingController productSpecificationsController =
       TextEditingController();
   TextEditingController productPriceController = TextEditingController();
-  // TextEditingController discountedProductPriceController =
-  //     TextEditingController();
+  TextEditingController discountedProductPriceController =
+      TextEditingController();
   String dropDownValue = 'Select Category';
   bool addproductBtnPress = false;
   @override
@@ -225,7 +225,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                         title: 'product Price ',
                         hintText: 'Price',
                         textController: productPriceController),
-                    //  AddProductTextField(title: 'discounted ProductPrice ', hintText: 'discounted ', textController: discountedProductPriceController),
+                     AddProductTextField(title: 'discounted ProductPrice ', hintText: 'discounted ', textController: discountedProductPriceController),
                     SizedBox(
                       height: height * 0.03,
                     ),
@@ -249,6 +249,11 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                             Uuid uuid = Uuid();
                             String sellerID = auth.currentUser!.phoneNumber!;
                             String productID = '$sellerID${uuid.v1()}';
+                             double discountAmount = double.parse(productPriceController.text.trim()) -
+          double.parse(discountedProductPriceController.text.trim());
+      double discountPercentage =
+          (discountAmount / double.parse(productPriceController.text.trim())) *
+              100;
                             ProductModel model = ProductModel(
                                 imagesURL: imagesURLs,
                                 name: productNameController.text.trim(),
@@ -266,7 +271,11 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                                     productPriceController.text.trim()),
                                 productID: productID,
                                 productSellerID: sellerID,
-                                inStock: true);
+                                discountedPrice:
+            double.parse(discountedProductPriceController.text.trim()),
+                                inStock: true,
+                                 uploadedAt: DateTime.now(),
+        discountPercentage: int.parse(discountPercentage.toStringAsFixed(0,)) );
                             await ProductServices.addProduct(
                                 context: context, productModel: model);
                             showToast(

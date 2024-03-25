@@ -2,6 +2,7 @@
 import 'package:amazon_clone/controller/provider/address_provider.dart';
 import 'package:amazon_clone/controller/provider/auth_provider/auth_provider.dart';
 import 'package:amazon_clone/controller/provider/product_provider/product_provider.dart';
+import 'package:amazon_clone/controller/provider/users_product_provider/users_product_provider.dart';
 import 'package:amazon_clone/firebase_options.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/User/adress_Screen/adress_Screen.dart';
@@ -35,7 +36,8 @@ class AmazonApp extends StatelessWidget {
       providers: [
            ChangeNotifierProvider<AutthProvider>(create: (_)=>AutthProvider()),
            ChangeNotifierProvider<AddressProvider>(create: (_)=>AddressProvider()),
-           ChangeNotifierProvider<SellerProductProvider>(create: (_)=>SellerProductProvider())
+           ChangeNotifierProvider<SellerProductProvider>(create: (_)=>SellerProductProvider()),
+           ChangeNotifierProvider<UsersProductProvider>(create: (_)=>UsersProductProvider()),
           
       ],
     

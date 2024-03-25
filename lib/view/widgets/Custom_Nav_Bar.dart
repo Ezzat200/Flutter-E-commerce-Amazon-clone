@@ -1,6 +1,8 @@
 
 import 'package:amazon_clone/utils/colors.dart';
+import 'package:amazon_clone/view/User/product_display_screen/product_display_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class CustomNavBar extends StatelessWidget {
   const CustomNavBar({
@@ -28,7 +30,7 @@ class CustomNavBar extends StatelessWidget {
             width: width *0.8,
             child: TextField(
               onTap: () {
-               
+               Navigator.push(context, PageTransition(child:const ProductDisplayScreen(), type: PageTransitionType.rightToLeft));
               },
               cursorColor: black,
               decoration: InputDecoration(
