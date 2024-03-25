@@ -1,6 +1,6 @@
 
 import 'package:amazon_clone/utils/colors.dart';
-import 'package:amazon_clone/view/User/product_display_screen/product_display_screen.dart';
+import 'package:amazon_clone/view/User/searched_product_screen/searched_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -30,7 +30,7 @@ class CustomNavBar extends StatelessWidget {
             width: width *0.8,
             child: TextField(
               onTap: () {
-               Navigator.push(context, PageTransition(child:const ProductDisplayScreen(), type: PageTransitionType.rightToLeft));
+               Navigator.push(context, PageTransition(child:const SearchedProductScreen(), type: PageTransitionType.rightToLeft));
               },
               cursorColor: black,
               decoration: InputDecoration(

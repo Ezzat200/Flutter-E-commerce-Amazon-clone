@@ -104,6 +104,7 @@ class _UserDataInputScreenState extends State<UserDataInputScreen> {
                       name: nameController.text.trim(),
                       mobileNum: phoneController.text.trim(),
                       userType: 'user',
+                      
                     );
                     await UserDataCRUD.addNewUser(
                         userModel: userModel, context: context);
@@ -112,6 +113,7 @@ class _UserDataInputScreenState extends State<UserDataInputScreen> {
                     'Proceed',
                     style: theme.textTheme.displaySmall,
                   ),
+                  color: amber,
                   height: height * 0.06,
                   width: width)
             ],

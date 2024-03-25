@@ -230,6 +230,7 @@ class _UserDataInputScreenState extends State<AddressScreen> {
                         'Add Address',
                         style: theme.textTheme.displaySmall,
                       ),
+                      color: amber,
                       height: height * 0.06,
                       width: width)
                 ],

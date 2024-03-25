@@ -56,14 +56,14 @@ class UsersProductService {
   //             .whenComplete(() {
   //           log('Data Added');
 
-  //           CommonFunctions.showSuccessToast(
+  //           showToast(
   //               context: context, message: 'Product Added Successful');
   //         });
   //       }
   //     });
   //   } catch (e) {
   //     log(e.toString());
-  //     CommonFunctions.showErrorToast(context: context, message: e.toString());
+  //     showToast(context: context, message: e.toString());
   //   }
   // }
 

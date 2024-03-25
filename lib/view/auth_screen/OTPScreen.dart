@@ -99,6 +99,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     'Verify',
                     style: theme.textTheme.displaySmall,
                   ),
+                  color: amber,
                   height: height * 0.06,
                   width: width * 0.9),
               SizedBox(

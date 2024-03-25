@@ -3,6 +3,7 @@ import 'package:amazon_clone/model/product_model.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/seller/add_products_screen/add_products_screen.dart';
+import 'package:amazon_clone/view/widgets/Custom_CaroselNetWork.dart';
 import 'package:amazon_clone/view/widgets/Custom_Navbar_UserScreen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -96,31 +97,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                             ),
                             child: Column(
                               children: [
-                                CarouselSlider(
-                                  
-                                  options: CarouselOptions(
-                                    height: height * 0.2,
-                                    autoPlay: false,
-                                    viewportFraction: 1,
-                                  ),
-                                  items: currentModel.imagesURL!.map((i) {
-                                    return Builder(
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
-                                            color: white,
-                                            image: DecorationImage(
-                                              image: NetworkImage(i),
-                                              fit: BoxFit.contain,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  }).toList(),
-                                ),
+                                CaroselNetWork(height: height, currentModel: currentModel),
                         const Spacer(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,

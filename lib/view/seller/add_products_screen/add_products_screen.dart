@@ -291,6 +291,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                                 'Add Product',
                                 style: theme.textTheme.displaySmall,
                               ),
+                              color: amber,
                         height: height * 0.06,
                         width: width)
                   ],

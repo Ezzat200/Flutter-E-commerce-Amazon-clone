@@ -84,6 +84,7 @@ class CartScreen extends StatelessWidget {
                       'Proceed to Buy (2:items)',
                       style: theme.textTheme.displaySmall,
                     ),
+                    color: amber,
                     // text: 'Proceed to Buy (2:items)',
                     height: height * 0.07,
                     width: width),

@@ -160,6 +160,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           'continue',
                           style: theme.textTheme.displaySmall,
                         ),
+                        color: amber,
                         height: height * 0.07,
                         width: width * 0.9),
                     SizedBox(height: height * 0.02),
@@ -378,6 +379,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     height: height * 0.02,
                   ),
                   CustomButton(
+                    
                       ontap: () {
                         AuthServices.receiveOTP(
                             context: context,
@@ -387,7 +389,9 @@ class _CreateAccountState extends State<CreateAccount> {
                       child: Text(
                         'Continue',
                         style: theme.textTheme.displaySmall,
+                        
                       ),
+                      color: amber,
                       height: height * 0.07,
                       width: width * 0.9),
                   SizedBox(
