@@ -1,4 +1,5 @@
 
+import 'package:amazon_clone/model/user_product_model.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:flutter/material.dart';
@@ -7,18 +8,23 @@ class CartListView extends StatelessWidget {
   const CartListView({
     super.key,
     required this.width,
-    required this.height,
+    required this.height, required this.itemCount,
+     required this.image,
   });
 
   final double width;
   final double height;
+  final int itemCount;
+  final ImageProvider<Object> image;
+  
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: 2,
+        itemCount: itemCount,
         shrinkWrap: true,
         itemBuilder: (context, index) {
+          
           return Container(
             // height: height * 0.3,
             width: width,
@@ -40,9 +46,8 @@ class CartListView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Image(
-                        image: AssetImage(
-                            'assets/images/todays_deals/todaysDeal1.png'),
+                       Image(
+                        image:image,
                         fit: BoxFit.contain,
                       ),
                       SizedBox(
@@ -183,5 +188,6 @@ class CartListView extends StatelessWidget {
             ),
           );
         });
+  
   }
 }

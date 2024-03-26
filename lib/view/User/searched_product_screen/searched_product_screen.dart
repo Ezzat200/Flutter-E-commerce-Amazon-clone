@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:amazon_clone/controller/provider/users_product_provider/users_product_provider.dart';
+import 'package:amazon_clone/controller/services/users_product_services/users_product_services.dart';
 import 'package:amazon_clone/model/product_model.dart';
+import 'package:amazon_clone/model/user_product_model.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/User/product_screen/product_screen.dart';
@@ -141,13 +143,14 @@ class _ProductDisplayScreenState extends State<SearchedProductScreen> {
     log(DateTime.now().month.toString());
   }
 
-@override
+  @override
   void initState() {
     super.initState();
-WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-  context.read<UsersProductProvider>().emptySearchProductsList();
-});    
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<UsersProductProvider>().emptySearchProductsList();
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -251,7 +254,9 @@ WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                         usersProductProvider.searchedProducts[index];
 
                     return InkWell(
-                      onTap: () {
+                      onTap: () async {
+                        await UsersProductService.addRecentlySeenProduct(
+                            context: context, productModel: currenProduct);
                         Navigator.push(
                             context,
                             PageTransition(
@@ -412,6 +417,30 @@ WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                                         height: height * 0.01,
                                       ),
                                       CustomButton(
+                                          ontap: () async {
+                                            UserProductModel model =UserProductModel(
+                                              imagesURL: currenProduct.imagesURL,
+                                              name: currenProduct.name,
+                                              category: currenProduct.category,
+                                              description:currenProduct.description,
+                                              brandName:currenProduct.brandName,
+                                              manufacturerName: currenProduct.manufacturerName,
+                                              countryOfOrigin:currenProduct.countryOfOrigin,
+                                              specifications:currenProduct.specifications,
+                                              price: currenProduct.price,
+                                              discountedPrice:currenProduct.discountedPrice,
+                                              productID:currenProduct.productID,
+                                              productSellerID:currenProduct.productSellerID,
+                                              inStock: currenProduct.inStock,
+                                              discountPercentage: currenProduct.discountPercentage,
+                                              productCount: 1,
+                                              time: DateTime.now(),
+                                            );
+                                            await UsersProductService
+                                                .addProductToCart(
+                                                    context: context,
+                                                    productModel: model);
+                                          },
                                           height: height * 0.042,
                                           width: width,
                                           child: Text('Add To Cart'),

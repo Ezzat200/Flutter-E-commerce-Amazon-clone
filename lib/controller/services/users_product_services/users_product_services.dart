@@ -4,7 +4,9 @@ import 'dart:developer';
 
 
 import 'package:amazon_clone/constants/constants.dart';
+import 'package:amazon_clone/model/user_product_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 import '../../../model/product_model.dart';
 
@@ -34,130 +36,133 @@ class UsersProductService {
     return sellersProducts;
   }
 
-  // static Future addProductToCart({
-  //   required BuildContext context,
-  //   required UserProductModel productModel,
-  // }) async {
-  //   try {
-  //     await firestore
-  //         .collection('Cart')
-  //         .doc(auth.currentUser!.phoneNumber)
-  //         .collection('myCart')
-  //         .where('productID', isEqualTo: productModel.productID)
-  //         .get()
-  //         .then((value) async {
-  //       if (value.size < 1) {
-  //         await firestore
-  //             .collection('Cart')
-  //             .doc(auth.currentUser!.phoneNumber)
-  //             .collection('myCart')
-  //             .doc(productModel.productID)
-  //             .set(productModel.toMap())
-  //             .whenComplete(() {
-  //           log('Data Added');
+  static Future addProductToCart({
+    required BuildContext context,
+    required UserProductModel productModel,
+  }) async {
+    try {
+      await firestore
+          .collection('Cart')
+          .doc(auth.currentUser!.phoneNumber)
+          .collection('myCart')
+          .where('productID', isEqualTo: productModel.productID)
+          .get()
+          .then((value) async {
+        if (value.size < 1) {
+          await firestore
+              .collection('Cart')
+              .doc(auth.currentUser!.phoneNumber)
+              .collection('myCart')
+              .doc(productModel.productID)
+              .set(productModel.toMap())
+              .whenComplete(() {
+            log('Data Added');
 
-  //           showToast(
-  //               context: context, message: 'Product Added Successful');
-  //         });
-  //       }
-  //     });
-  //   } catch (e) {
-  //     log(e.toString());
-  //     showToast(context: context, message: e.toString());
-  //   }
-  // }
+            showToast(
+                context: context, message: 'Product Added Successful');
+          });
+        }
+      });
+    } catch (e) {
+      log(e.toString());
+      showToast(context: context, message: e.toString());
+    }
+  }
 
-  // static Future addRecentlySeenProduct({
-  //   required BuildContext context,
-  //   required ProductModel productModel,
-  // }) async {
-  //   try {
-  //     await firestore
-  //         .collection('Recently_Seen_Products')
-  //         .doc(auth.currentUser!.phoneNumber)
-  //         .collection('products')
-  //         .where('productID', isEqualTo: productModel.productID)
-  //         .get()
-  //         .then((value) async {
-  //       if (value.size < 1) {
-  //         await firestore
-  //             .collection('Recently_Seen_Products')
-  //             .doc(auth.currentUser!.phoneNumber)
-  //             .collection('products')
-  //             .doc(productModel.productID)
-  //             .set(productModel.toMap());
-  //       }
-  //     });
-  //   } catch (e) {
-  //     log(e.toString());
-  //     CommonFunctions.showErrorToast(context: context, message: e.toString());
-  //   }
-  // }
+  static Future addRecentlySeenProduct({
+    required BuildContext context,
+    required ProductModel productModel,
+  }) async {
+    try {
+      await firestore
+          .collection('Recently_Seen_Products')
+          .doc(auth.currentUser!.phoneNumber)
+          .collection('products')
+          .where('productID', isEqualTo: productModel.productID)
+          .get()
+          .then((value) async {
+        if (value.size < 1) {
+          await firestore
+              .collection('Recently_Seen_Products')
+              .doc(auth.currentUser!.phoneNumber)
+              .collection('products')
+              .doc(productModel.productID)
+              .set(productModel.toMap());
+        }
+      });
+    } catch (e) {
+      log(e.toString());
+      showToast(context: context, message: e.toString());
+    }
+  }
 
-  // static Stream<List<UserProductModel>> fetchCartProducts() => firestore
-  //     .collection('Cart')
-  //     .doc(auth.currentUser!.phoneNumber)
-  //     .collection('myCart')
-  //     .orderBy('time', descending: true)
-  //     .snapshots()
-  //     .map((snapshot) => snapshot.docs.map((doc) {
-  //           return UserProductModel.fromMap(doc.data());
-  //         }).toList());
+  static Stream<List<UserProductModel>> fetchCartProducts() =>
+  firestore
+      .collection('Cart')
+      .doc(auth.currentUser!.phoneNumber)
+      .collection('myCart')
+      .orderBy('time', descending: true)
+      .snapshots()
+      .map((snapshot) => snapshot.docs.map((doc) {
+            return UserProductModel.fromMap(doc.data());
+          }).toList());
 
-  // static Future<void> updateCountCartProduct({
-  //   required String productId,
-  //   required int newCount,
-  //   required BuildContext context,
-  // }) async {
-  //   final collectionRef = firestore
-  //       .collection('Cart')
-  //       .doc(auth.currentUser!.phoneNumber)
-  //       .collection('myCart');
 
-  //   try {
-  //     final snapshot =
-  //         await collectionRef.where('productID', isEqualTo: productId).get();
 
-  //     if (snapshot.docs.isNotEmpty) {
-  //       final docId = snapshot.docs[0].id;
-  //       await collectionRef.doc(docId).update({'productCount': newCount});
-  //     }
-  //   } catch (e) {
-  //     CommonFunctions.showErrorToast(context: context, message: e.toString());
-  //   }
-  // }
+  static Future<void> updateCountCartProduct({
+    required String productId,
+    required int newCount,
+    required BuildContext context,
+  }) async {
+    final collectionRef = firestore
+        .collection('Cart')
+        .doc(auth.currentUser!.phoneNumber)
+        .collection('myCart');
 
-  // static Future<void> removeProductfromCart({
-  //   required String productId,
-  //   required BuildContext context,
-  // }) async {
-  //   final collectionRef = firestore
-  //       .collection('Cart')
-  //       .doc(auth.currentUser!.phoneNumber)
-  //       .collection('myCart');
+    try {
+      final snapshot =
+          await collectionRef.where('productID', isEqualTo: productId).get();
 
-  //   try {
-  //     final snapshot =
-  //         await collectionRef.where('productID', isEqualTo: productId).get();
+      if (snapshot.docs.isNotEmpty) {
+        final docId = snapshot.docs[0].id;
+        await collectionRef.doc(docId).update({'productCount': newCount});
+      }
+    } catch (e) {
+      showToast(context: context, message: e.toString());
+    }
+  }
 
-  //     if (snapshot.docs.isNotEmpty) {
-  //       final docId = snapshot.docs[0].id;
-  //       await collectionRef.doc(docId).delete();
-  //     }
-  //   } catch (e) {
-  //     CommonFunctions.showErrorToast(context: context, message: e.toString());
-  //   }
-  // }
+  static Future<void> removeProductfromCart({
+    required String productId,
+    required BuildContext context,
+  }) async {
+    final collectionRef = firestore
+        .collection('Cart')
+        .doc(auth.currentUser!.phoneNumber)
+        .collection('myCart');
 
-  // static Stream<List<ProductModel>> fetchKeepShoppingForProducts() => firestore
-  //     .collection('Recently_Seen_Products')
-  //     .doc(auth.currentUser!.phoneNumber)
-  //     .collection('products')
-  //     .orderBy('uploadedAt', descending: true)
-  //     .snapshots()
-  //     .map((snapshot) => snapshot.docs.map((doc) {
-  //           return ProductModel.fromMap(doc.data());
-  //         }).toList());
+    try {
+      final snapshot =
+          await collectionRef.where('productID', isEqualTo: productId).get();
+
+      if (snapshot.docs.isNotEmpty) {
+        final docId = snapshot.docs[0].id;
+        await collectionRef.doc(docId).delete();
+      }
+    } catch (e) {
+      showToast(context: context, message: e.toString());
+    }
+  }
+
+  static Stream<List<ProductModel>> fetchKeepShoppingForProducts() => firestore
+      .collection('Recently_Seen_Products')
+      .doc(auth.currentUser!.phoneNumber)
+      .collection('products')
+      .orderBy('uploadedAt', descending: true)
+      .snapshots()
+      .map((snapshot) => snapshot.docs.map((doc) {
+            return ProductModel.fromMap(doc.data());
+          }).toList());
 
   // static Future featchDealOfTheDay() async {
   //   List<ProductModel> sellersProducts = [];

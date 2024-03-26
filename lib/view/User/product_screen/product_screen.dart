@@ -1,4 +1,6 @@
+import 'package:amazon_clone/controller/services/users_product_services/users_product_services.dart';
 import 'package:amazon_clone/model/product_model.dart';
+import 'package:amazon_clone/model/user_product_model.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/widgets/Custom_CaroselNetWork.dart';
@@ -85,6 +87,27 @@ class _ProductScreenState extends State<ProductScreen> {
                 height: height * 0.02,
               ),
               CustomButton(
+                ontap: ()async {
+           UserProductModel model =       UserProductModel(
+ imagesURL          :widget.productModel.imagesURL,
+ name               :widget.productModel.name,
+ category           :widget.productModel.category,
+ description        :widget.productModel.description,
+ brandName          :widget.productModel.brandName,
+ manufacturerName   :widget.productModel.manufacturerName,
+ countryOfOrigin    :widget.productModel.countryOfOrigin,
+ specifications     :widget.productModel.specifications,
+ price              :widget.productModel.price,
+ discountedPrice    :widget.productModel.discountedPrice,
+ productID          :widget.productModel.productID,
+ productSellerID    :widget.productModel.productSellerID,
+ inStock            :widget.productModel.inStock,
+ discountPercentage :widget.productModel.discountPercentage,
+ productCount       :1,
+ time               :DateTime.now(),
+                  );
+                  await UsersProductService.addProductToCart(context: context, productModel: model);
+                },
                 color: amber,
                 height: height * 0.06,
                 width: width,
