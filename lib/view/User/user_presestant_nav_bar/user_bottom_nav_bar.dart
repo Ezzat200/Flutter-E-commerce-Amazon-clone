@@ -33,14 +33,14 @@ const MenueScreen()
             inactiveColorPrimary: Colors.black,
             ),
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.person),
+          icon: const Icon(Icons.person_outlined),
           title: "You",
           activeColorPrimary: Colors.teal,
           inactiveColorPrimary: Colors.black,
          
         ),
         PersistentBottomNavBarItem(
-          icon: const Icon(Icons.shopping_basket),
+          icon: const Icon(Icons.shopping_cart_outlined),
           title: "Cart",
           activeColorPrimary: Colors.teal,
           inactiveColorPrimary: Colors.black,

@@ -164,44 +164,44 @@ class UsersProductService {
             return ProductModel.fromMap(doc.data());
           }).toList());
 
-  // static Future featchDealOfTheDay() async {
-  //   List<ProductModel> sellersProducts = [];
-  //   try {
-  //     final QuerySnapshot<Map<String, dynamic>> snapshot = await firestore
-  //         .collection('Products')
-  //         .orderBy('discountPercentage', descending: true)
-  //         .limit(4)
-  //         .get();
-  //     snapshot.docs.forEach((element) {
-  //       sellersProducts.add(ProductModel.fromMap(element.data()));
-  //     });
-  //     log(sellersProducts.toList().toString());
-  //   } catch (e) {
-  //     log('error Found');
-  //     log(e.toString());
-  //   }
-  //   log(sellersProducts.toList().toString());
-  //   return sellersProducts;
-  // }
+  static Future featchDealOfTheDay() async {
+    List<ProductModel> sellersProducts = [];
+    try {
+      final QuerySnapshot<Map<String, dynamic>> snapshot = await firestore
+          .collection('Products')
+          .orderBy('discountPercentage', descending: true)
+          .limit(4)
+          .get();
+      snapshot.docs.forEach((element) {
+        sellersProducts.add(ProductModel.fromMap(element.data()));
+      });
+      log(sellersProducts.toList().toString());
+    } catch (e) {
+      log('error Found');
+      log(e.toString());
+    }
+    log(sellersProducts.toList().toString());
+    return sellersProducts;
+  }
 
-  // static Future fetchProductBasedOnCategory({required String category}) async {
-  //   List<ProductModel> sellersProducts = [];
-  //   try {
-  //     final QuerySnapshot<Map<String, dynamic>> snapshot = await firestore
-  //         .collection('Products')
-  //         .where('category', isEqualTo: category)
-  //         .get();
-  //     snapshot.docs.forEach((element) {
-  //       sellersProducts.add(ProductModel.fromMap(element.data()));
-  //     });
-  //     log(sellersProducts.toList().toString());
-  //   } catch (e) {
-  //     log('error Found');
-  //     log(e.toString());
-  //   }
-  //   log(sellersProducts.toList().toString());
-  //   return sellersProducts;
-  // }
+  static Future fetchProductBasedOnCategory({required String category}) async {
+    List<ProductModel> sellersProducts = [];
+    try {
+      final QuerySnapshot<Map<String, dynamic>> snapshot = await firestore
+          .collection('Products')
+          .where('category', isEqualTo: category)
+          .get();
+      snapshot.docs.forEach((element) {
+        sellersProducts.add(ProductModel.fromMap(element.data()));
+      });
+      log(sellersProducts.toList().toString());
+    } catch (e) {
+      log('error Found');
+      log(e.toString());
+    }
+    log(sellersProducts.toList().toString());
+    return sellersProducts;
+  }
 
   // static Future addOrder({
   //   required BuildContext context,

@@ -10,6 +10,7 @@ class CustomCarouselSlider extends StatelessWidget {
     required  this.items,
      required this.imagePath,
       required this.boxFit,
+      
   });
 
   final double width;
@@ -17,6 +18,7 @@ class CustomCarouselSlider extends StatelessWidget {
   final List<String> items;
   final String imagePath;
   final BoxFit boxFit;
+  
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(

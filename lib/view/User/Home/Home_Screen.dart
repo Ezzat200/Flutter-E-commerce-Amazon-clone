@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:amazon_clone/controller/provider/address_provider.dart';
+import 'package:amazon_clone/controller/provider/deal_of_theDay_provider/deal_of_theday_provider.dart';
 import 'package:amazon_clone/controller/services/user_data_crud_services/user_data_Crud_services.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
@@ -108,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkUserAddress();
       context.read<AddressProvider>().getCurrentSelectedAddress();
+      context.read<DealOfTheDayProvider>().fetchTodaysDeal();
     });
   }
 

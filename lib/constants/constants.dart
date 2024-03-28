@@ -9,20 +9,13 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
 List<String> categories = [
   'Prime',
   'Electronics',
-  'Business',
   'Home',
   'miniTV',
   'Mobiles',
   'Fashion',
-  'Deals',
-  'Travel',
   'Beauty',
-  'Furniture',
-  'Pharmacy',
-  'Movies',
   'Books',
   'Appliances',
-  'More',
 ];
 
 List<String> carouselPictures = [
@@ -64,17 +57,14 @@ List<String> productCategories = [
   'Home',
   'Mobiles',
   'Fashion',
-  'Travel',
   'Beauty',
-  'Furniture',
-  'Pharmacy',
-  'Movies',
-  'Grocery',
+  'miniTV',
+  'Appliances',
   'Books',
-  'More'
+  'Prime',
 ];
 
-showToast({required BuildContext context,required String message}){
+showToast({required BuildContext context, required String message}) {
   return Fluttertoast.showToast(
     msg: message,
     toastLength: Toast.LENGTH_SHORT,
@@ -83,9 +73,5 @@ showToast({required BuildContext context,required String message}){
     backgroundColor: white,
     textColor: black,
     fontSize: 16.0,
-    );
-
-
-    
+  );
 }
-
