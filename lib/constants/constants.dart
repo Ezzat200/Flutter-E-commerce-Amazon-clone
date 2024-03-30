@@ -6,6 +6,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 FirebaseFirestore firestore = FirebaseFirestore.instance;
+const String keySecret = 'sk_test_51OzHrdP9Z7OBVaekkmrBydPpRYH6yx4TDFnToo3IpvVXQJGRxbTqYbPCTLEQ1G5G6zmHozYibC9UZGramfIjTqBT00tgUo81PD';
+const String keyID ='pk_test_51OzHrdP9Z7OBVaekS4YL7ysL2H8sCRdVJ3ZAGckYmyc2FGA0ulo9U7whpJRUmGMublwCXfjGq1eqT2B8tjn2BN6100Xx59TXU3';
+
 List<String> categories = [
   'Prime',
   'Electronics',

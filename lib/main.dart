@@ -1,4 +1,5 @@
 
+import 'package:amazon_clone/constants/constants.dart';
 import 'package:amazon_clone/controller/provider/address_provider.dart';
 import 'package:amazon_clone/controller/provider/auth_provider/auth_provider.dart';
 import 'package:amazon_clone/controller/provider/deal_of_theDay_provider/deal_of_theday_provider.dart';
@@ -18,10 +19,12 @@ import 'package:amazon_clone/view/seller/seller_presistant_nav_bar/seller_bootom
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey =keyID;
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

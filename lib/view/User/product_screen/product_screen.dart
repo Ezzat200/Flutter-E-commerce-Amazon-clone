@@ -121,17 +121,17 @@ class _ProductScreenState extends State<ProductScreen> {
               SizedBox(
                 height: height * 0.02,
               ),
-              CustomButton(
-                color: orange,
-                height: height * 0.06,
-                width: width,
-                child: Text(
-                  'Buy Now',
-                  style: theme.textTheme.displayLarge!.copyWith(
-                    color: black,
-                  ),
-                ),
-              ),
+              // CustomButton(
+              //   color: orange,
+              //   height: height * 0.06,
+              //   width: width,
+              //   child: Text(
+              //     'Buy Now',
+              //     style: theme.textTheme.displayLarge!.copyWith(
+              //       color: black,
+              //     ),
+              //   ),
+              // ),
                           SizedBox(
                 height: height * 0.02,
               ),

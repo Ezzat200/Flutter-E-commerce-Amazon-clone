@@ -1,5 +1,6 @@
 import 'package:amazon_clone/controller/services/users_product_services/users_product_services.dart';
 import 'package:amazon_clone/model/product_model.dart';
+import 'package:amazon_clone/model/user_product_model.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/User/product_screen/product_screen.dart';
@@ -33,28 +34,113 @@ class BodyUserScreen extends StatelessWidget {
           children: [
             CustomHelloUser(width: width),
             SizedBox(height: height * 0.01),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: width * 0.04, vertical: height * 0.02),
-              child: Column(
-                children: [
-                  CustomGridViewUserScreen(width: width),
-                  SizedBox(height: height * 0.01),
-                  Row(
-                    children: [
-                      Text(
-                        'Your Orders',
-                        style: theme.textTheme.bodyLarge!
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      const Spacer(),
-                      const CustomTextButton(text: 'See all')
-                    ],
-                  ),
-                  CustomListViewUserScreen(height: height, width: width),
-                ],
-              ),
-            ),
+            StreamBuilder<List<UserProductModel>>(
+                stream: UsersProductService.fetchOrders(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!.isEmpty) {
+                      return Container(
+                          height: height * 0.02,
+                          width: width,
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Your didnt order anything  yet',
+                            style: theme.textTheme.displayMedium,
+                          ));
+                    } else {
+                      List<UserProductModel> orders=snapshot.data!;
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: width * 0.04, vertical: height * 0.02),
+                        child: Column(
+                          children: [
+                            CustomGridViewUserScreen(width: width),
+                            SizedBox(height: height * 0.01),
+                            Row(
+                              children: [
+                                Text(
+                                  'Your Orders',
+                                  style: theme.textTheme.bodyLarge!
+                                      .copyWith(fontWeight: FontWeight.bold),
+                                ),
+                                const Spacer(),
+                                const CustomTextButton(text: 'See all')
+                              ],
+                            ),
+                            Container(
+                              height: height * 0.17,
+                              child: ListView.builder(
+                                  itemCount: orders.length,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const PageScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    UserProductModel currentproduct = orders[index];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        ProductModel product = ProductModel(
+                                      imagesURL: currentproduct.imagesURL,
+                                      name: currentproduct.name,
+                                      category: currentproduct.category,
+                                      description: currentproduct.description,
+                                      brandName: currentproduct.brandName,
+                                      manufacturerName:
+                                          currentproduct.manufacturerName,
+                                      countryOfOrigin:
+                                          currentproduct.countryOfOrigin,
+                                      specifications:
+                                          currentproduct.specifications,
+                                      price: currentproduct.price,
+                                      discountedPrice:
+                                          currentproduct.discountedPrice,
+                                      productID: currentproduct.productID,
+                                      productSellerID:
+                                          currentproduct.productSellerID,
+                                      inStock: currentproduct.inStock,
+                                      uploadedAt: currentproduct.time,
+                                      discountPercentage:
+                                          currentproduct.discountPercentage);
+
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      child:
+                                          ProductScreen(productModel: product),
+                                      type: PageTransitionType.rightToLeft,
+                                    ),
+                                  );
+                                      },
+                                      child: Container(
+                                        width: width * 0.4,
+                                        height: height * 0.17,
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: width * 0.02),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(color: greyShade3),
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                                child: Image(image: NetworkImage(currentproduct.imagesURL![0]),fit: BoxFit.contain,),
+                                      ),
+                                    );
+                                    
+                                  }),
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                  }else{
+                     
+                      return Container(
+                          height: height * 0.02,
+                          width: width,
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Your didnt order anything  yet',
+                            style: theme.textTheme.displayMedium,
+                          ));
+                  }
+                }),
             SizedBox(height: height * 0.01),
             const CustomDivider(),
             Padding(

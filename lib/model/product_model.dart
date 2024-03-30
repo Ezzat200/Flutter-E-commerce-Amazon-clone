@@ -95,4 +95,6 @@ class ProductModel {
 
   factory ProductModel.fromJson(String source) =>
       ProductModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  fold(double d, Function(dynamic previousValue, dynamic element) param1) {}
 }

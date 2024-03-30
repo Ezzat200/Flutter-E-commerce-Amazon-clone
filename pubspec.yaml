@@ -39,7 +39,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_rating_bar: ^4.0.1
-  flutter_stripe: ^10.1.1
+  flutter_stripe: ^5.0.0
+  http: ^0.13.5
   fluttertoast: ^8.2.4
   image_picker: ^0.8.8
   page_transition: ^2.1.0

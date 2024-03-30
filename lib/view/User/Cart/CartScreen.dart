@@ -1,22 +1,63 @@
 // ignore_for_file: sort_child_properties_last
 
+import 'package:amazon_clone/constants/constants.dart';
+import 'package:amazon_clone/controller/services/product_services/product_services.dart';
 import 'package:amazon_clone/controller/services/users_product_services/users_product_services.dart';
 import 'package:amazon_clone/model/user_product_model.dart';
+import 'package:amazon_clone/stripe_payment/payment_manager.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 
 import 'package:amazon_clone/view/widgets/Custom_Diveder.dart';
 import 'package:amazon_clone/view/widgets/Custom_Nav_Bar.dart';
 import 'package:amazon_clone/view/widgets/Custom_button.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class CartScreen extends StatelessWidget {
+import 'package:flutter/material.dart';
+
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
   @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  void handlePaymentSuccess() async {
+    List<UserProductModel> cartItems = await UsersProductService.fetchCart();
+    DateTime currentTime = DateTime.now();
+
+    for (var product in cartItems) {
+      UserProductModel model = UserProductModel(
+        imagesURL: product.imagesURL,
+        name: product.name,
+        category: product.category,
+        description: product.description,
+        brandName: product.brandName,
+        manufacturerName: product.manufacturerName,
+        countryOfOrigin: product.countryOfOrigin,
+        specifications: product.specifications,
+        price: product.price,
+        discountedPrice: product.discountedPrice,
+        productID: product.productID,
+        productSellerID: product.productSellerID,
+        inStock: product.inStock,
+        discountPercentage: product.discountPercentage,
+        productCount: product.productCount,
+        time: currentTime,
+      );
+      await ProductServices.addSalesData(
+        context: context,
+        productModel: model,
+        userID: auth.currentUser!.phoneNumber!,
+      );
+      await UsersProductService.addOrder(
+        context: context,
+        productModel: model,
+      );
+    }}
+  @override
   Widget build(BuildContext context) {
+    
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -42,11 +83,12 @@ class CartScreen extends StatelessWidget {
                       // );
                       // }
                       if (snapshot.hasData) {
-
                         List<UserProductModel> cartProduct = snapshot.data!;
+                        
+
                         return Column(
                           children: [
-                            Row(  
+                            Row(
                               children: [
                                 Text(
                                   'Subtotal ',
@@ -54,9 +96,7 @@ class CartScreen extends StatelessWidget {
                                       .copyWith(fontWeight: FontWeight.w400),
                                 ),
                                 Text(
-                                  '\$ ${cartProduct.fold(0.0, (previousValue, element) =>
-                                  previousValue +(element.productCount! * element.discountedPrice!)).toStringAsFixed(0)
-                                  }',
+                                  '\$ ${cartProduct.fold(0.0, (previousValue, element) => previousValue + (element.productCount! * element.discountedPrice!)).toStringAsFixed(0)}',
                                   style: theme.textTheme.displayLarge!
                                       .copyWith(fontWeight: FontWeight.bold),
                                 )
@@ -97,6 +137,28 @@ class CartScreen extends StatelessWidget {
                               height: height * 0.04,
                             ),
                             CustomButton(
+                                ontap: () async {
+                                  PaymentManager.makePayment(
+                                      cartProduct
+                                          .fold(
+                                              0.0,
+                                              (previousValue, element) =>
+                                                  previousValue +
+                                                  (element.productCount! *
+                                                      element.discountedPrice!))
+                                          .toInt(),
+                                      'USD');
+                                      handlePaymentSuccess();
+                                  // await ProductServices.addSalesData(
+                                  //   context: context,
+                                  //   productModel: cartProduct,
+                                  //   userID: auth.currentUser!.phoneNumber!,
+                                  // );
+                                  // await UsersProductService.addOrder(
+                                  //   context: context,
+                                  //   productModel: model,
+                                  // );
+                                },
                                 child: Text(
                                   'Proceed to Buy ',
                                   style: theme.textTheme.displaySmall,
@@ -113,7 +175,7 @@ class CartScreen extends StatelessWidget {
                             ),
                             ////////////////////////////////
                             Container(
-                              height: height*0.6,
+                              height: height * 0.6,
                               child: ListView.builder(
                                   itemCount: cartProduct.length,
                                   shrinkWrap: true,
@@ -168,10 +230,10 @@ class CartScreen extends StatelessWidget {
                                                       Expanded(
                                                           flex: 2,
                                                           child: Container(
-                                                              height:
-                                                                  double.infinity,
-                                                              width:
-                                                                  double.infinity,
+                                                              height: double
+                                                                  .infinity,
+                                                              width: double
+                                                                  .infinity,
                                                               decoration:
                                                                   BoxDecoration(
                                                                 border: Border(
@@ -184,7 +246,8 @@ class CartScreen extends StatelessWidget {
                                                               ),
                                                               child:
                                                                   GestureDetector(
-                                                                onTap: () async {
+                                                                onTap:
+                                                                    () async {
                                                                   if (currenProduct
                                                                           .productCount ==
                                                                       1) {
@@ -214,8 +277,8 @@ class CartScreen extends StatelessWidget {
                                                           flex: 3,
                                                           child: Container(
                                                             color: white,
-                                                            alignment:
-                                                                Alignment.center,
+                                                            alignment: Alignment
+                                                                .center,
                                                             child: Text(
                                                                 currenProduct
                                                                     .productCount
@@ -224,10 +287,10 @@ class CartScreen extends StatelessWidget {
                                                       Expanded(
                                                           flex: 2,
                                                           child: Container(
-                                                              height:
-                                                                  double.infinity,
-                                                              width:
-                                                                  double.infinity,
+                                                              height: double
+                                                                  .infinity,
+                                                              width: double
+                                                                  .infinity,
                                                               decoration:
                                                                   BoxDecoration(
                                                                 border: Border(
@@ -240,7 +303,8 @@ class CartScreen extends StatelessWidget {
                                                               ),
                                                               child:
                                                                   GestureDetector(
-                                                                onTap: () async {
+                                                                onTap:
+                                                                    () async {
                                                                   await UsersProductService.updateCountCartProduct(
                                                                       productId:
                                                                           currenProduct
@@ -272,8 +336,8 @@ class CartScreen extends StatelessWidget {
                                                 Text(
                                                   currenProduct.name!,
                                                   maxLines: 3,
-                                                  style:
-                                                      theme.textTheme.bodyMedium,
+                                                  style: theme
+                                                      .textTheme.bodyMedium,
                                                 ),
                                                 SizedBox(
                                                   height: height * 0.005,
@@ -293,7 +357,8 @@ class CartScreen extends StatelessWidget {
                                                       ' M.R.P: ',
                                                       style: theme
                                                           .textTheme.bodySmall!
-                                                          .copyWith(color: grey),
+                                                          .copyWith(
+                                                              color: grey),
                                                     ),
                                                     Text(
                                                       '\$${currenProduct.price!.toStringAsFixed(0)}',
@@ -311,7 +376,8 @@ class CartScreen extends StatelessWidget {
                                                   height: height * 0.005,
                                                 ),
                                                 Text(
-                                                  currenProduct.discountedPrice! >
+                                                  currenProduct
+                                                              .discountedPrice! >
                                                           499
                                                       ? 'Extra Delivery Charges Applied'
                                                       : 'Extra Delivery  Charges Applied',
@@ -334,19 +400,19 @@ class CartScreen extends StatelessWidget {
                                                           .spaceBetween,
                                                   children: [
                                                     ElevatedButton(
-                                                        
-                                                          onPressed: () async{
-                                                            await UsersProductService.removeProductfromCart(
-                                                                        productId:
-                                                                            currenProduct
-                                                                                .productID!,
-                                                                        context:
-                                                                            context);
-                                                        
+                                                        onPressed: () async {
+                                                          await UsersProductService
+                                                              .removeProductfromCart(
+                                                                  productId:
+                                                                      currenProduct
+                                                                          .productID!,
+                                                                  context:
+                                                                      context);
                                                         },
                                                         style: ElevatedButton
                                                             .styleFrom(
-                                                          backgroundColor: white,
+                                                          backgroundColor:
+                                                              white,
                                                           side: BorderSide(
                                                             color: greyShade3,
                                                           ),
@@ -357,12 +423,11 @@ class CartScreen extends StatelessWidget {
                                                               .bodySmall,
                                                         )),
                                                     ElevatedButton(
-                                                        onPressed: () {
-                                                          
-                                                        },
+                                                        onPressed: () {},
                                                         style: ElevatedButton
                                                             .styleFrom(
-                                                          backgroundColor: white,
+                                                          backgroundColor:
+                                                              white,
                                                           side: BorderSide(
                                                             color: greyShade3,
                                                           ),
