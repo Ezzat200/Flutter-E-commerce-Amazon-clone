@@ -1,10 +1,13 @@
 import 'dart:developer';
 
 import 'package:amazon_clone/controller/provider/product_by_category_provider/product_by_category_provider.dart';
+import 'package:amazon_clone/controller/provider/product_provider/product_provider.dart';
 import 'package:amazon_clone/controller/provider/users_product_provider/users_product_provider.dart';
+import 'package:amazon_clone/controller/services/product_services/product_services.dart';
 import 'package:amazon_clone/controller/services/users_product_services/users_product_services.dart';
 import 'package:amazon_clone/model/product_model.dart';
 import 'package:amazon_clone/model/user_product_model.dart';
+import 'package:amazon_clone/stripe_payment/payment_manager.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/User/product_screen/product_screen.dart';
@@ -16,14 +19,14 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-class ProductCategoriesScreen extends StatefulWidget {
-  const ProductCategoriesScreen({super.key, required this.category});
-final String  category;
+class BuyAgainScreen extends StatefulWidget {
+  const BuyAgainScreen({super.key, });
+
   @override
-  State<ProductCategoriesScreen> createState() => _ProductDisplayScreenState();
+  State<BuyAgainScreen> createState() => _ProductDisplayScreenState();
 }
 
-class _ProductDisplayScreenState extends State<ProductCategoriesScreen> {
+class _ProductDisplayScreenState extends State<BuyAgainScreen> {
   final TextEditingController searchController = TextEditingController();
 
   getDay(int dayNum) {
@@ -148,8 +151,7 @@ class _ProductDisplayScreenState extends State<ProductCategoriesScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<ProductsBasedOnCategoryProvider>().fetchProducts(category: widget.category);
-    });
+context.read<SellerProductProvider>().fecthSellerProducts();});
   }
 
   @override
@@ -208,40 +210,46 @@ class _ProductDisplayScreenState extends State<ProductCategoriesScreen> {
               ),
               ),
          
-          body: Consumer<ProductsBasedOnCategoryProvider>(
-              builder: (context, usersProductProvider, child) {
-            if (usersProductProvider.productsFetched == false) {
+          body: Consumer<SellerProductProvider>(
+              builder: (context, sellerProductProvider, child) {
+            if (sellerProductProvider.sellerProductsFetched == false) {
               return Center(
                 child: CircularProgressIndicator(
                   color: amber,
                 ),
               );
-            } else if (usersProductProvider.products.isEmpty) {
+            } else if (sellerProductProvider.products.isEmpty) {
               return const Center(
                 child: Text('oops! product not found'),
               );
             } else {
               return ListView.builder(
-                  itemCount: usersProductProvider.products.length,
+                  itemCount: sellerProductProvider.products.length,
                   shrinkWrap: true,
                   physics: const PageScrollPhysics(),
                   itemBuilder: (context, index) {
-                    ProductModel currenProduct =
-                        usersProductProvider.products[index];
-
-                    return InkWell(
+                   ProductModel currentModel =
+                            sellerProductProvider.products[index];
+                      return StreamBuilder( stream: ProductServices.fetchSalesPerProduct(
+                                productID: currentModel.productID!),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                if (snapshot.data!.isEmpty) {
+                                  return SizedBox();
+                                }else{
+                                  return 
+                                  InkWell(
                       onTap: () async {
-                        await UsersProductService.addRecentlySeenProduct(
-                            context: context, productModel: currenProduct);
+                        
                         Navigator.push(
                             context,
                             PageTransition(
                                 child:
-                                    ProductScreen(productModel: currenProduct),
+                                    ProductScreen(productModel: currentModel),
                                 type: PageTransitionType.rightToLeft));
                       },
                       child: Container(
-                        height: height * 0.4,
+                        height: height * 0.45,
                         width: width,
                         margin: EdgeInsets.symmetric(
                           horizontal: width * 0.03,
@@ -257,7 +265,7 @@ class _ProductDisplayScreenState extends State<ProductCategoriesScreen> {
                                 child: Container(
                                   color: greyShade1,
                                   child: Image.network(
-                                    currenProduct.imagesURL![0],
+                                    currentModel.imagesURL![0],
                                     fit: BoxFit.fitWidth,
                                   ),
                                 )),
@@ -272,7 +280,7 @@ class _ProductDisplayScreenState extends State<ProductCategoriesScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        currenProduct.name ?? '',
+                                        currentModel.name ?? '',
                                         maxLines: 3,
                                         overflow: TextOverflow.ellipsis,
                                         style: theme.textTheme.bodySmall!
@@ -296,7 +304,7 @@ class _ProductDisplayScreenState extends State<ProductCategoriesScreen> {
                                                 style:
                                                     theme.textTheme.bodyMedium),
                                             TextSpan(
-                                              text: currenProduct
+                                              text: currentModel
                                                   .discountedPrice!
                                                   .toStringAsFixed(0),
                                               style: theme.textTheme.bodyLarge!
@@ -310,7 +318,7 @@ class _ProductDisplayScreenState extends State<ProductCategoriesScreen> {
                                                     theme.textTheme.bodyMedium),
                                             TextSpan(
                                                 text:
-                                                    '\$${currenProduct.price!.toStringAsFixed(0)}',
+                                                    '\$${currentModel.price!.toStringAsFixed(0)}',
                                                 style: theme
                                                     .textTheme.labelLarge!
                                                     .copyWith(
@@ -320,7 +328,7 @@ class _ProductDisplayScreenState extends State<ProductCategoriesScreen> {
                                                                 .lineThrough)),
                                             TextSpan(
                                                 text:
-                                                    '\t(${currenProduct.discountPercentage!.toStringAsFixed(0)}% off )',
+                                                    '\t(${currentModel.discountPercentage!.toStringAsFixed(0)}% off )',
                                                 style: theme
                                                     .textTheme.labelMedium!
                                                     .copyWith(
@@ -383,7 +391,7 @@ class _ProductDisplayScreenState extends State<ProductCategoriesScreen> {
                                         height: height * 0.01,
                                       ),
                                       Text(
-                                        currenProduct.discountedPrice! > 500
+                                        currentModel.discountedPrice! > 500
                                             ? 'FREE Delivery by Amazon'
                                             : 'Extra Delivery charges Applied',
                                         style: theme.textTheme.labelMedium!
@@ -392,35 +400,23 @@ class _ProductDisplayScreenState extends State<ProductCategoriesScreen> {
                                       SizedBox(
                                         height: height * 0.01,
                                       ),
-                                      CustomButton(
-                                          ontap: () async {
-                                            UserProductModel model =UserProductModel(
-                                              imagesURL: currenProduct.imagesURL,
-                                              name: currenProduct.name,
-                                              category: currenProduct.category,
-                                              description:currenProduct.description,
-                                              brandName:currenProduct.brandName,
-                                              manufacturerName: currenProduct.manufacturerName,
-                                              countryOfOrigin:currenProduct.countryOfOrigin,
-                                              specifications:currenProduct.specifications,
-                                              price: currenProduct.price,
-                                              discountedPrice:currenProduct.discountedPrice,
-                                              productID:currenProduct.productID,
-                                              productSellerID:currenProduct.productSellerID,
-                                              inStock: currenProduct.inStock,
-                                              discountPercentage: currenProduct.discountPercentage,
-                                              productCount: 1,
-                                              time: DateTime.now(),
-                                            );
-                                            await UsersProductService
-                                                .addProductToCart(
-                                                    context: context,
-                                                    productModel: model);
-                                          },
-                                          height: height * 0.042,
-                                          width: width,
-                                          child: Text('Add To Cart'),
-                                          color: amber),
+                                     CustomButton(
+                ontap: () {
+                  PaymentManager.makePayment(
+                     currentModel.discountedPrice!.toInt(),
+                     'USD');     
+                                                    
+                },
+                color: orange,
+                height: height * 0.06,
+                width: width,
+                child: Text(
+                  'Buy Now',
+                  style: theme.textTheme.displayLarge!.copyWith(
+                    color: black,
+                  ),
+                ),
+              ),
                                     ],
                                   ),
                                 ))
@@ -428,6 +424,19 @@ class _ProductDisplayScreenState extends State<ProductCategoriesScreen> {
                         ),
                       ),
                     );
+                 
+                                }
+                                }
+if (snapshot.hasError) {
+                                return Text(
+                                  'Opps! Error Loading Data, Please contact Admin',
+                                  style: theme.textTheme.bodyMedium,
+                                );
+                              } else {
+                                return SizedBox();
+                              }
+                                });
+                    
                   });
             }
           })),

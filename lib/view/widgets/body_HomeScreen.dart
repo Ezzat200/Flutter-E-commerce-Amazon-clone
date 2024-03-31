@@ -1,17 +1,20 @@
 import 'package:amazon_clone/constants/constants.dart';
+
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/User/product_categories_screen/product_categories_screen.dart';
-import 'package:amazon_clone/view/widgets/CategoriesListView.dart';
 import 'package:amazon_clone/view/widgets/Custom_CaroselDeals.dart';
 import 'package:amazon_clone/view/widgets/Custom_CarouselSlider.dart';
+import 'package:amazon_clone/view/widgets/Custom_CategoryFashion.dart';
 import 'package:amazon_clone/view/widgets/Custom_Diveder.dart';
-import 'package:amazon_clone/view/widgets/Custom_GridView.dart';
+
 import 'package:amazon_clone/view/widgets/Custom_Image.dart';
 import 'package:amazon_clone/view/widgets/Custom_Text_Button.dart';
+import 'package:amazon_clone/view/widgets/Custom_categoryElctronics.dart';
 import 'package:amazon_clone/view/widgets/Home_Screen_User_AddressBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
+
 
 class BodyHomeScreen extends StatelessWidget {
   const BodyHomeScreen({
@@ -96,39 +99,19 @@ class BodyHomeScreen extends StatelessWidget {
         SizedBox(
           height: height * 0.01,
         ),
+CustomCategoryElctronics(
+    category: 'Electronics',
+    width: width, height: height),
+           
 
-        Container(
-          width: width,
-          padding: EdgeInsets.symmetric(
-              vertical: height * 0.01, horizontal: width * 0.03),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Latest lunches',
-                style: theme.textTheme.displayLarge!
-                    .copyWith(fontWeight: FontWeight.bold),
-              ),
-              CustomGridView(
-                crossAxisCount: 2,
-                imagePath: 'assets/images/offersNsponcered/',
-                items: headphonesDeals,
-                boxFit: BoxFit.cover,
-              ),
-              SizedBox(
-                height: height * 0.03,
-              ),
-              const CustomTextButton(text: 'Explor More'),
-            ],
-          ),
-        ),
+        
         const CustomDivider(),
         CustomImage(
           height: height,
           width: width,
           imagePath: 'assets/images/offersNsponcered/insurance.png',
         ),
-        //////////////
+        
         SizedBox(
           height: height * 0.01,
         ),
@@ -137,31 +120,12 @@ class BodyHomeScreen extends StatelessWidget {
           height: height * 0.01,
         ),
 
-        Container(
-          width: width,
-          padding: EdgeInsets.symmetric(
-              vertical: height * 0.01, horizontal: width * 0.03),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Minimum 70% off | Top Offers on Clothing',
-                style: theme.textTheme.bodySmall!
-                    .copyWith(fontWeight: FontWeight.bold),
-              ),
-              CustomGridView(
-                crossAxisCount: 2,
-                imagePath: 'assets/images/offersNsponcered/',
-                items: clothingDealsList,
-                boxFit: BoxFit.cover,
-              ),
-              SizedBox(
-                height: height * 0.03,
-              ),
-              const CustomTextButton(text: 'See all Deals'),
-            ],
-          ),
-        ),
+
+
+CustomCategoryFashion(
+  category: 'Fashion',
+  width: width, height: height),     
+
         const CustomDivider(),
         SizedBox(
           height: height * 0.01,

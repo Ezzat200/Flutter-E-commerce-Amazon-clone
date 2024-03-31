@@ -97,7 +97,7 @@ class CustomCaroselDeals extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
          itemCount: dealOfTheDayProvider.deals.length,
          gridDelegate:
-        SliverGridDelegateWithFixedCrossAxisCount(
+      const  SliverGridDelegateWithFixedCrossAxisCount(
          crossAxisCount: 4,
          mainAxisSpacing: 10,
          crossAxisSpacing: 20

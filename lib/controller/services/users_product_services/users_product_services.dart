@@ -261,5 +261,15 @@ class UsersProductService {
 
   
 
+  static Stream<List<UserProductModel>> fetchBuyAgain() => firestore
+      .collection('productSaleData')
+      .doc(auth.currentUser!.phoneNumber)
+      .collection('purchase_history')
+      .orderBy('time', descending: true)
+      .snapshots()
+      .map((snapshot) => snapshot.docs.map((doc) {
+            return UserProductModel.fromMap(doc.data());
+          }).toList());
+
 
 }

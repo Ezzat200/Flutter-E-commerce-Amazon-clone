@@ -1,7 +1,9 @@
 
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
+import 'package:amazon_clone/view/User/buy_again_screen/buy_again_screen.dart';
 import 'package:amazon_clone/view/User/orders_screen/orders_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -28,11 +30,22 @@ class CustomGridViewUserScreen extends StatelessWidget {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
+              
                if (index == 0) {
               Navigator.push(
                 context,
                 PageTransition(
                   child: const OrdersScreen(),
+                  type: PageTransitionType.rightToLeft,
+                ),
+              );
+            }
+
+             if (index == 1) {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const BuyAgainScreen(),
                   type: PageTransitionType.rightToLeft,
                 ),
               );

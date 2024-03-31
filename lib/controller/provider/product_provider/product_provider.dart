@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 
@@ -26,6 +27,7 @@ class SellerProductProvider extends ChangeNotifier {
   fecthSellerProducts() async {
     products = await ProductServices.getSellersProducts();
     sellerProductsFetched = true;
+
     notifyListeners();
   }
 

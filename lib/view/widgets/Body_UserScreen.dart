@@ -1,3 +1,5 @@
+import 'package:amazon_clone/controller/provider/product_provider/product_provider.dart';
+import 'package:amazon_clone/controller/services/product_services/product_services.dart';
 import 'package:amazon_clone/controller/services/users_product_services/users_product_services.dart';
 import 'package:amazon_clone/model/product_model.dart';
 import 'package:amazon_clone/model/user_product_model.dart';
@@ -7,14 +9,12 @@ import 'package:amazon_clone/view/User/product_screen/product_screen.dart';
 import 'package:amazon_clone/view/widgets/Custom_Diveder.dart';
 import 'package:amazon_clone/view/widgets/Custom_GridView_UserScreen.dart';
 import 'package:amazon_clone/view/widgets/Custom_Hello_User.dart';
-import 'package:amazon_clone/view/widgets/Custom_ListView_UserScreen.dart';
 import 'package:amazon_clone/view/widgets/Custom_Text_Button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 
-class BodyUserScreen extends StatelessWidget {
+class BodyUserScreen extends StatefulWidget {
   const BodyUserScreen({
     Key? key,
     required this.width,
@@ -25,23 +25,35 @@ class BodyUserScreen extends StatelessWidget {
   final double height;
 
   @override
+  State<BodyUserScreen> createState() => _BodyUserScreenState();
+}
+
+class _BodyUserScreenState extends State<BodyUserScreen> {
+   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SellerProductProvider>().fecthSellerProducts();
+    });
+  }
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        width: width,
-        padding: EdgeInsets.symmetric(vertical: height * 0.03),
+        width: widget.width,
+        padding: EdgeInsets.symmetric(vertical: widget.height * 0.03),
         child: Column(
           children: [
-            CustomHelloUser(width: width),
-            SizedBox(height: height * 0.01),
+            CustomHelloUser(width: widget.width),
+            SizedBox(height: widget.height * 0.01),
             StreamBuilder<List<UserProductModel>>(
                 stream: UsersProductService.fetchOrders(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data!.isEmpty) {
                       return Container(
-                          height: height * 0.02,
-                          width: width,
+                          height: widget.height * 0.02,
+                          width: widget.width,
                           alignment: Alignment.center,
                           child: Text(
                             'Your didnt order anything  yet',
@@ -51,11 +63,11 @@ class BodyUserScreen extends StatelessWidget {
                       List<UserProductModel> orders=snapshot.data!;
                       return Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: width * 0.04, vertical: height * 0.02),
+                            horizontal: widget.width * 0.04, vertical: widget.height * 0.02),
                         child: Column(
                           children: [
-                            CustomGridViewUserScreen(width: width),
-                            SizedBox(height: height * 0.01),
+                            CustomGridViewUserScreen(width: widget.width),
+                            SizedBox(height: widget.height * 0.01),
                             Row(
                               children: [
                                 Text(
@@ -68,7 +80,7 @@ class BodyUserScreen extends StatelessWidget {
                               ],
                             ),
                             Container(
-                              height: height * 0.17,
+                              height: widget.height * 0.17,
                               child: ListView.builder(
                                   itemCount: orders.length,
                                   shrinkWrap: true,
@@ -111,10 +123,10 @@ class BodyUserScreen extends StatelessWidget {
                                   );
                                       },
                                       child: Container(
-                                        width: width * 0.4,
-                                        height: height * 0.17,
+                                        width: widget.width * 0.4,
+                                        height: widget.height * 0.17,
                                         margin: EdgeInsets.symmetric(
-                                            horizontal: width * 0.02),
+                                            horizontal: widget.width * 0.02),
                                         decoration: BoxDecoration(
                                             border: Border.all(color: greyShade3),
                                             borderRadius:
@@ -132,8 +144,8 @@ class BodyUserScreen extends StatelessWidget {
                   }else{
                      
                       return Container(
-                          height: height * 0.02,
-                          width: width,
+                          height: widget.height * 0.02,
+                          width: widget.width,
                           alignment: Alignment.center,
                           child: Text(
                             'Your didnt order anything  yet',
@@ -141,11 +153,12 @@ class BodyUserScreen extends StatelessWidget {
                           ));
                   }
                 }),
-            SizedBox(height: height * 0.01),
+          
+            SizedBox(height: widget.height * 0.01),
             const CustomDivider(),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: width * 0.04, vertical: height * 0.02),
+                  horizontal: widget.width * 0.04, vertical: widget.height * 0.02),
               child: Column(
                 children: [
                   Row(
@@ -215,15 +228,15 @@ class BodyUserScreen extends StatelessWidget {
                       }
                       if (snapshot.hasError) {
                         return Container(
-                          width: width,
-                          height: height,
+                          width: widget.width,
+                          height: widget.height,
                           alignment: Alignment.center,
                           child: const Text('There Was an Error'),
                         );
                       } else {
                         return Container(
-                          width: width,
-                          height: height,
+                          width: widget.width,
+                          height: widget.height,
                           alignment: Alignment.center,
                           child: const Text('No Product Found'),
                         );
@@ -233,29 +246,135 @@ class BodyUserScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: width * 0.04, vertical: height * 0.02),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Buy Again ',
-                        style: theme.textTheme.bodyLarge!
-                            .copyWith(fontWeight: FontWeight.bold),
+
+                    
+                     
+Consumer<SellerProductProvider>(
+                builder: (context, sellerProductProvider, child) {
+                  if (sellerProductProvider.sellerProductsFetched == false) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (sellerProductProvider.products.isEmpty) {
+                    return Center(
+                      child: Text(
+                        'No Products Found',
+                        style: theme.textTheme.bodyMedium,
                       ),
-                      const Spacer(),
-                      const CustomTextButton(text: 'See all')
-                    ],
-                  ),
-                  CustomListViewUserScreen(height: height, width: width),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+                    );
+                  }
+                   
+                      
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: widget.width * 0.04, vertical: widget.height * 0.02),
+                        child: Column(
+                          children: [
+                           
+                            SizedBox(height: widget.height * 0.01),
+                            Row(
+                              children: [
+                                Text(
+                                  'Buy Again',
+                                  style: theme.textTheme.bodyLarge!
+                                      .copyWith(fontWeight: FontWeight.bold),
+                                ),
+                                const Spacer(),
+                                const CustomTextButton(text: 'See all')
+                              ],
+                            ),
+                            Container(
+                              height: widget.height * 0.17,
+                              child: ListView.builder(
+                                  itemCount: sellerProductProvider.products.length,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  physics: const PageScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                   ProductModel currentModel =
+                            sellerProductProvider.products[index];
+                            return StreamBuilder( stream: ProductServices.fetchSalesPerProduct(
+                                productID: currentModel.productID!),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                if (snapshot.data!.isEmpty) {
+                                  return SizedBox();
+                                }
+                                else{
+                                  
+
+                                    return GestureDetector(
+                                      onTap: () {
+                                        ProductModel product = ProductModel(
+                                      imagesURL: currentModel.imagesURL,
+                                      name: currentModel.name,
+                                      category: currentModel.category,
+                                      description: currentModel.description,
+                                      brandName: currentModel.brandName,
+                                      manufacturerName:
+                                          currentModel.manufacturerName,
+                                      countryOfOrigin:
+                                          currentModel.countryOfOrigin,
+                                      specifications:
+                                          currentModel.specifications,
+                                      price: currentModel.price,
+                                      discountedPrice:
+                                          currentModel.discountedPrice,
+                                      productID: currentModel.productID,
+                                      productSellerID:
+                                          currentModel.productSellerID,
+                                      inStock: currentModel.inStock,
+                                      uploadedAt: currentModel.uploadedAt,
+                                      discountPercentage:
+                                          currentModel.discountPercentage);
+
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      child:
+                                          ProductScreen(productModel: product),
+                                      type: PageTransitionType.rightToLeft,
+                                    ),
+                                  );
+                                      },
+                                      child: Container(
+                                        width: widget.width * 0.4,
+                                        height: widget.height * 0.17,
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: widget.width * 0.02),
+                                        decoration: BoxDecoration(
+                                            border: Border.all(color: greyShade3),
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                                child: Image(image: NetworkImage(currentModel.imagesURL![0]),fit: BoxFit.contain,),
+                                      ),
+                                    );
+                                     
+                                }
+                                }
+                                if (snapshot.hasError) {
+                                return Text(
+                                  'Opps! Error Loading Data, Please contact Admin',
+                                  style: theme.textTheme.bodyMedium,
+                                );
+                              } else {
+                                return SizedBox();
+                              }
+                                }
+                                
+                                
+                                );
+                                  
+                                  }
+                                  ),
+                            )
+                          ],
+                        ),
+                      );
+                    
+                  }
+                  
+                ),]),),);}
 }
+  
+

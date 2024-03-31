@@ -1,11 +1,14 @@
+import 'package:amazon_clone/constants/constants.dart';
+import 'package:amazon_clone/controller/services/product_services/product_services.dart';
 import 'package:amazon_clone/controller/services/users_product_services/users_product_services.dart';
 import 'package:amazon_clone/model/product_model.dart';
 import 'package:amazon_clone/model/user_product_model.dart';
+import 'package:amazon_clone/stripe_payment/payment_manager.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/widgets/Custom_CaroselNetWork.dart';
 import 'package:amazon_clone/view/widgets/Custom_Diveder.dart';
-import 'package:amazon_clone/view/widgets/Custom_Nav_Bar.dart';
+
 import 'package:amazon_clone/view/widgets/Custom_Rating.dart';
 
 import 'package:amazon_clone/view/widgets/Custom_button.dart';
@@ -19,6 +22,34 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  void handlePaymentSuccess() async {
+    UserProductModel userProductModel = UserProductModel(
+      imagesURL: widget.productModel.imagesURL,
+      name: widget.productModel.name,
+      category: widget.productModel.category,
+      description: widget.productModel.description,
+      brandName: widget.productModel.brandName,
+      manufacturerName: widget.productModel.manufacturerName,
+      countryOfOrigin: widget.productModel.countryOfOrigin,
+      specifications: widget.productModel.specifications,
+      price: widget.productModel.price,
+      discountedPrice: widget.productModel.discountedPrice,
+      productID: widget.productModel.productID,
+      productSellerID: widget.productModel.productSellerID,
+      inStock: widget.productModel.inStock,
+      discountPercentage: widget.productModel.discountPercentage,
+      productCount: 1,
+      time: DateTime.now(),
+    );
+    await ProductServices.addSalesData(
+      context: context,
+      productModel: userProductModel,
+      userID: auth.currentUser!.phoneNumber!,
+    );
+    await UsersProductService.addOrder(
+        context: context, productModel: userProductModel);
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -27,7 +58,50 @@ class _ProductScreenState extends State<ProductScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(width, height * 0.1),
-        child: CustomNavBar(width: width, height: height),
+        child: Container(
+          padding: EdgeInsets.only(
+              left: width * 0.03,
+              right: width * 0.03,
+              bottom: height * 0.012,
+              top: height * 0.045),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: appBarGradientColor,
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+          ),
+          child: Row(
+            children: [
+              IconButton(onPressed: (){
+               Navigator.pop(context);
+              }, icon:const Icon(Icons.arrow_back)),
+              Image(
+                image: const AssetImage(
+                  'assets/images/amazon_black_logo.png',
+                ),
+                height: height * 0.04,
+              ),
+              const Spacer(),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.notifications_none,
+                  color: black,
+                  size: height * 0.035,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.search,
+                  color: black,
+                  size: height * 0.035,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -36,7 +110,7 @@ class _ProductScreenState extends State<ProductScreen> {
           padding: EdgeInsets.symmetric(
               horizontal: width * 0.03, vertical: height * 0.02),
           child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CaroselNetWork(height: height, currentModel: widget.productModel),
               SizedBox(
@@ -72,9 +146,9 @@ class _ProductScreenState extends State<ProductScreen> {
                         style: theme.textTheme.displayLarge!
                             .copyWith(color: red, fontWeight: FontWeight.w500)),
                     TextSpan(
-                        text: '\t\$${widget.productModel.price}',
-                        style: theme.textTheme.displayLarge!
-                            .copyWith(color: black, fontWeight: FontWeight.w600)),
+                        text: '\t\$ ${widget.productModel.discountedPrice} ',
+                        style: theme.textTheme.displayLarge!.copyWith(
+                            color: black, fontWeight: FontWeight.w600)),
                   ],
                 ),
               ),
@@ -87,26 +161,27 @@ class _ProductScreenState extends State<ProductScreen> {
                 height: height * 0.02,
               ),
               CustomButton(
-                ontap: ()async {
-           UserProductModel model =       UserProductModel(
- imagesURL          :widget.productModel.imagesURL,
- name               :widget.productModel.name,
- category           :widget.productModel.category,
- description        :widget.productModel.description,
- brandName          :widget.productModel.brandName,
- manufacturerName   :widget.productModel.manufacturerName,
- countryOfOrigin    :widget.productModel.countryOfOrigin,
- specifications     :widget.productModel.specifications,
- price              :widget.productModel.price,
- discountedPrice    :widget.productModel.discountedPrice,
- productID          :widget.productModel.productID,
- productSellerID    :widget.productModel.productSellerID,
- inStock            :widget.productModel.inStock,
- discountPercentage :widget.productModel.discountPercentage,
- productCount       :1,
- time               :DateTime.now(),
+                ontap: () async {
+                  UserProductModel model = UserProductModel(
+                    imagesURL: widget.productModel.imagesURL,
+                    name: widget.productModel.name,
+                    category: widget.productModel.category,
+                    description: widget.productModel.description,
+                    brandName: widget.productModel.brandName,
+                    manufacturerName: widget.productModel.manufacturerName,
+                    countryOfOrigin: widget.productModel.countryOfOrigin,
+                    specifications: widget.productModel.specifications,
+                    price: widget.productModel.price,
+                    discountedPrice: widget.productModel.discountedPrice,
+                    productID: widget.productModel.productID,
+                    productSellerID: widget.productModel.productSellerID,
+                    inStock: widget.productModel.inStock,
+                    discountPercentage: widget.productModel.discountPercentage,
+                    productCount: 1,
+                    time: DateTime.now(),
                   );
-                  await UsersProductService.addProductToCart(context: context, productModel: model);
+                  await UsersProductService.addProductToCart(
+                      context: context, productModel: model);
                 },
                 color: amber,
                 height: height * 0.06,
@@ -121,22 +196,29 @@ class _ProductScreenState extends State<ProductScreen> {
               SizedBox(
                 height: height * 0.02,
               ),
-              // CustomButton(
-              //   color: orange,
-              //   height: height * 0.06,
-              //   width: width,
-              //   child: Text(
-              //     'Buy Now',
-              //     style: theme.textTheme.displayLarge!.copyWith(
-              //       color: black,
-              //     ),
-              //   ),
-              // ),
-                          SizedBox(
+
+              CustomButton(
+                ontap: () {
+                  PaymentManager.makePayment(
+                    widget.productModel.discountedPrice!.toInt(),
+                     'USD');     
+                     handlePaymentSuccess();                                
+                },
+                color: orange,
+                height: height * 0.06,
+                width: width,
+                child: Text(
+                  'Buy Now',
+                  style: theme.textTheme.displayLarge!.copyWith(
+                    color: black,
+                  ),
+                ),
+              ),
+              SizedBox(
                 height: height * 0.02,
               ),
               const CustomDivider(),
-                          SizedBox(
+              SizedBox(
                 height: height * 0.02,
               ),
               Text(
@@ -144,18 +226,14 @@ class _ProductScreenState extends State<ProductScreen> {
                 style: theme.textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
-                
               ),
-                        SizedBox(
+              SizedBox(
                 height: height * 0.02,
               ),
               Text(
                 widget.productModel.description!,
-                style: theme.textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w400,
-                  color: grey
-                ),
-                
+                style: theme.textTheme.bodyMedium!
+                    .copyWith(fontWeight: FontWeight.w400, color: grey),
               )
             ],
           ),
