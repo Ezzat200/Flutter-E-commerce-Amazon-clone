@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-
 import 'package:amazon_clone/controller/provider/product_provider/product_provider.dart';
 import 'package:amazon_clone/controller/services/product_services/product_services.dart';
 import 'package:amazon_clone/model/product_model.dart';

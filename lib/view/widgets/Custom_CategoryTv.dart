@@ -2,29 +2,27 @@
 import 'package:amazon_clone/controller/provider/product_by_category_provider/product_by_category_provider.dart';
 import 'package:amazon_clone/model/product_model.dart';
 import 'package:amazon_clone/utils/colors.dart';
-import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/User/product_screen/product_screen.dart';
 import 'package:amazon_clone/view/widgets/Custom_Text_Button.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-class CustomCategoryFashion extends StatefulWidget {
-  const CustomCategoryFashion({
+class CustomCategoryTV extends StatefulWidget {
+  const CustomCategoryTV({
     super.key,
     required this.width,
-    required this.height,
-    required this.category
+    required this.height, required this.category,
   });
 
   final double width;
   final double height;
-final String  category ;
+final String  category;
   @override
-  State<CustomCategoryFashion> createState() => _CustomCategoryElctronicsState();
+  State<CustomCategoryTV> createState() => _CustomCategoryElctronicsState();
 }
 
-class _CustomCategoryElctronicsState extends State<CustomCategoryFashion> {
+class _CustomCategoryElctronicsState extends State<CustomCategoryTV> {
   @override
   void initState() {
     super.initState();
@@ -43,7 +41,7 @@ class _CustomCategoryElctronicsState extends State<CustomCategoryFashion> {
                    color: amber,
                  ),
                );
-             } else if (usersProductProvider.FashionProduct.isEmpty) {
+             } else if (usersProductProvider.TvProduct.isEmpty) {
                return const Center(
                  child: Text('oops! product not found'),
                );
@@ -55,23 +53,19 @@ class _CustomCategoryElctronicsState extends State<CustomCategoryFashion> {
            child: Column(
              crossAxisAlignment: CrossAxisAlignment.start,
              children: [
-               Text(
-                 'Minimum 70% off | Top Offers on Clothing',
-                 style: theme.textTheme.bodySmall!
-                     .copyWith(fontWeight: FontWeight.bold),
-               ),
+              
                GridView.builder(
        physics: const NeverScrollableScrollPhysics(),
-          itemCount: 4,
+          itemCount: 1,
           gridDelegate:
        const  SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
+          crossAxisCount: 1,
           mainAxisSpacing: 10,
           crossAxisSpacing: 20
           ),
           shrinkWrap: true, itemBuilder: (context,index){
            ProductModel currenProduct =
-                         usersProductProvider.FashionProduct[index];
+                         usersProductProvider.TvProduct[index];
           return GestureDetector(
             onTap: () {
                Navigator.push(

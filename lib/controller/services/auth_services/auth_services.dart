@@ -77,8 +77,5 @@ class AuthServices {
       log(e.toString());
     }
   }
-  static signOut(){
-    FirebaseAuth auth = FirebaseAuth.instance;
-auth.signOut();
-  }
+  
 }

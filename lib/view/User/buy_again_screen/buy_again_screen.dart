@@ -1,12 +1,7 @@
 import 'dart:developer';
-
-import 'package:amazon_clone/controller/provider/product_by_category_provider/product_by_category_provider.dart';
 import 'package:amazon_clone/controller/provider/product_provider/product_provider.dart';
-import 'package:amazon_clone/controller/provider/users_product_provider/users_product_provider.dart';
 import 'package:amazon_clone/controller/services/product_services/product_services.dart';
-import 'package:amazon_clone/controller/services/users_product_services/users_product_services.dart';
 import 'package:amazon_clone/model/product_model.dart';
-import 'package:amazon_clone/model/user_product_model.dart';
 import 'package:amazon_clone/stripe_payment/payment_manager.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';

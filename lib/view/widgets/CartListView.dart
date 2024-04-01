@@ -1,5 +1,3 @@
-
-import 'package:amazon_clone/model/user_product_model.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:flutter/material.dart';

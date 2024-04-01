@@ -1,4 +1,3 @@
-
 import 'package:amazon_clone/constants/constants.dart';
 import 'package:amazon_clone/controller/provider/address_provider.dart';
 import 'package:amazon_clone/controller/provider/auth_provider/auth_provider.dart';
@@ -8,16 +7,8 @@ import 'package:amazon_clone/controller/provider/product_provider/product_provid
 import 'package:amazon_clone/controller/provider/users_product_provider/users_product_provider.dart';
 import 'package:amazon_clone/firebase_options.dart';
 import 'package:amazon_clone/utils/theme.dart';
-import 'package:amazon_clone/view/User/adress_Screen/adress_Screen.dart';
-import 'package:amazon_clone/view/User/user_data_screen/user_data_input_screen.dart';
-import 'package:amazon_clone/view/User/user_presestant_nav_bar/user_bottom_nav_bar.dart';
 import 'package:amazon_clone/view/auth_screen/SingnIn_Logic.dart';
-import 'package:amazon_clone/view/seller/add_products_screen/add_products_screen.dart';
-import 'package:amazon_clone/view/seller/seller_presistant_nav_bar/seller_bootom_navbar.dart';
-
-
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';

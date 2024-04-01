@@ -1,6 +1,3 @@
-
-import 'package:amazon_clone/utils/colors.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

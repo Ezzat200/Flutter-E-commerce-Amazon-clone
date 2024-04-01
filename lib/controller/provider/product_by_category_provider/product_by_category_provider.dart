@@ -8,11 +8,17 @@ class ProductsBasedOnCategoryProvider extends ChangeNotifier {
   bool productsFetched = false;
   List<ProductModel>ElctronicProduct=[];
   List<ProductModel>FashionProduct=[];
+  List<ProductModel>MobileProduct=[];
+  List<ProductModel>TvProduct=[];
+
 
   fetchProducts({required String category}) async {
     products = [];
     ElctronicProduct=[];
     FashionProduct=[];
+    MobileProduct=[];
+    TvProduct=[];
+
    
      ElctronicProduct = await UsersProductService.fetchProductBasedOnCategory(
         category: 'Electronics');
@@ -23,7 +29,14 @@ class ProductsBasedOnCategoryProvider extends ChangeNotifier {
         category: 'Fashion');
     productsFetched = true;
   
-   
+   MobileProduct = await UsersProductService.fetchProductBasedOnCategory(
+        category: 'Mobiles');
+    productsFetched = true;
+
+    TvProduct = await UsersProductService.fetchProductBasedOnCategory(
+        category: 'miniTV');
+    productsFetched = true;
+
     products = await UsersProductService.fetchProductBasedOnCategory(
         category: category);
     productsFetched = true;

@@ -1,9 +1,6 @@
-// ignore_for_file: sort_child_properties_last
-
 import 'package:amazon_clone/constants/constants.dart';
 import 'package:amazon_clone/controller/services/user_data_crud_services/user_data_Crud_services.dart';
 import 'package:amazon_clone/model/address_model.dart';
-import 'package:amazon_clone/model/user_model.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/widgets/Custom_TextFromField.dart';

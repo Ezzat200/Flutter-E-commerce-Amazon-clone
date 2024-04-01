@@ -5,9 +5,10 @@ import 'package:amazon_clone/view/User/product_categories_screen/product_categor
 import 'package:amazon_clone/view/widgets/Custom_CaroselDeals.dart';
 import 'package:amazon_clone/view/widgets/Custom_CarouselSlider.dart';
 import 'package:amazon_clone/view/widgets/Custom_CategoryFashion.dart';
+import 'package:amazon_clone/view/widgets/Custom_CategoryMobiles.dart';
+import 'package:amazon_clone/view/widgets/Custom_CategoryTv.dart';
 import 'package:amazon_clone/view/widgets/Custom_Diveder.dart';
 
-import 'package:amazon_clone/view/widgets/Custom_Image.dart';
 import 'package:amazon_clone/view/widgets/Custom_Text_Button.dart';
 import 'package:amazon_clone/view/widgets/Custom_categoryElctronics.dart';
 import 'package:amazon_clone/view/widgets/Home_Screen_User_AddressBar.dart';
@@ -106,11 +107,7 @@ CustomCategoryElctronics(
 
         
         const CustomDivider(),
-        CustomImage(
-          height: height,
-          width: width,
-          imagePath: 'assets/images/offersNsponcered/insurance.png',
-        ),
+       CustomCategoryMobiles(width: width, height: height, category: 'Mobiles'),
         
         SizedBox(
           height: height * 0.01,
@@ -148,11 +145,7 @@ CustomCategoryFashion(
           height: height * 0.01,
         ),
 
-        CustomImage(
-          height: height,
-          width: width,
-          imagePath: 'assets/images/offersNsponcered/sixer.png',
-        ),
+       CustomCategoryTV(width: width, height: height, category: 'miniTV')
       ]),
     );
   }

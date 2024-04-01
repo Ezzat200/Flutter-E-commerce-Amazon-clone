@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import '../../utils/colors.dart';
 
 class OTPScreen extends StatefulWidget {
-  OTPScreen({super.key, required this.mobileNumber});
-  String mobileNumber;
+  const OTPScreen({super.key, required this.mobileNumber});
+ final String mobileNumber;
 
   @override
   State<OTPScreen> createState() => _OTPScreenState();

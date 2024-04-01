@@ -5,8 +5,6 @@ import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/seller/add_products_screen/add_products_screen.dart';
 import 'package:amazon_clone/view/widgets/Custom_CaroselNetWork.dart';
 import 'package:amazon_clone/view/widgets/Custom_Navbar_UserScreen.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
