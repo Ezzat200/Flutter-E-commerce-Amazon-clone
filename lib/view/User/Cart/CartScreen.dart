@@ -175,7 +175,7 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                             ////////////////////////////////
                             Container(
-                              height: height * 0.6,
+                              height: height * 0.5,
                               child: ListView.builder(
                                   itemCount: cartProduct.length,
                                   shrinkWrap: true,

@@ -1,15 +1,16 @@
 import 'dart:developer';
 import 'package:amazon_clone/controller/provider/product_provider/product_provider.dart';
 import 'package:amazon_clone/controller/services/product_services/product_services.dart';
+import 'package:amazon_clone/controller/services/rating_services/rating_services.dart';
 import 'package:amazon_clone/model/product_model.dart';
 import 'package:amazon_clone/stripe_payment/payment_manager.dart';
 import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/User/product_screen/product_screen.dart';
-import 'package:amazon_clone/view/widgets/Custom_Rating.dart';
 import 'package:amazon_clone/view/widgets/Custom_button.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -285,8 +286,192 @@ context.read<SellerProductProvider>().fecthSellerProducts();});
                                       SizedBox(
                                         height: height * 0.005,
                                       ),
-                                      CustomRating(
-                                          width: width, height: height),
+                                        StreamBuilder(
+                                        stream: RatingServices.fetchReview(
+                                            productID:
+                                                currentModel.productID!),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasData) {
+                                            if (snapshot.data!.isEmpty) {
+                                              return Row(
+                                                children: [
+                                                  Text(
+                                                    '0.0',
+                                                    style: theme. textTheme
+                                                        .labelMedium!
+                                                        .copyWith(color: teal),
+                                                  ),
+                                                   SizedBox(width: width*0.02,),
+                                                  RatingBar(
+                                                    initialRating: 0,
+                                                    direction: Axis.horizontal,
+                                                    allowHalfRating: true,
+                                                    itemCount: 5,
+                                                    itemSize: width * 0.06,
+                                                    ignoreGestures: true,
+                                                    ratingWidget: RatingWidget(
+                                                      full: Icon(
+                                                        Icons.star,
+                                                        color: amber,
+                                                      ),
+                                                      half: Icon(
+                                                        Icons.star_half,
+                                                        color: amber,
+                                                      ),
+                                                      empty: Icon(
+                                                        Icons
+                                                            .star_outline_sharp,
+                                                        color: amber,
+                                                      ),
+                                                    ),
+                                                    itemPadding:
+                                                        EdgeInsets.zero,
+                                                    onRatingUpdate: (rating) {},
+                                                  ),
+                                                  SizedBox(width: width*0.01,),
+                                                  Text(
+                                                    '(0)',
+                                                    style:
+                                                        theme.textTheme.labelMedium,
+                                                  ),
+                                                ],
+                                              );
+                                            } else {
+                                              return Row(
+                                                children: [
+                                                  Text(
+                                                    '${snapshot.data!.fold(0.0, (previousValue, product) => previousValue + (product.rating)) / snapshot.data!.length}',
+                                                    style: theme. textTheme
+                                                        .labelMedium!
+                                                        .copyWith(color: teal),
+                                                  ),
+                                                   SizedBox(width: width*0.02,),
+                                                  RatingBar(
+                                                    initialRating: snapshot.data!.fold(
+                                                            0.0,
+                                                            (previousValue,
+                                                                    product) =>
+                                                                previousValue +
+                                                                (product
+                                                                    .rating)) /
+                                                        snapshot.data!.length,
+                                                    direction: Axis.horizontal,
+                                                    allowHalfRating: true,
+                                                    itemCount: 5,
+                                                    itemSize: width * 0.04,
+                                                    ignoreGestures: true,
+                                                    ratingWidget: RatingWidget(
+                                                      full: Icon(
+                                                        Icons.star,
+                                                        color: amber,
+                                                      ),
+                                                      half: Icon(
+                                                        Icons.star_half,
+                                                        color: amber,
+                                                      ),
+                                                      empty: Icon(
+                                                        Icons
+                                                            .star_outline_sharp,
+                                                        color: amber,
+                                                      ),
+                                                    ),
+                                                    itemPadding:
+                                                        EdgeInsets.zero,
+                                                    onRatingUpdate: (rating) {},
+                                                  ),
+                                                  SizedBox(width: width*0.02,),
+                                                  Text(
+                                                    '(${snapshot.data!.length})',
+                                                    style:
+                                                       theme. textTheme.labelMedium,
+                                                  ),
+                                                ],
+                                              );
+                                            }
+                                          }
+                                          if (snapshot.hasError) {
+                                            return Row(
+                                              children: [
+                                                Text(
+                                                  '0.0',
+                                                  style:theme. textTheme.labelMedium!
+                                                      .copyWith(color: teal),
+                                                ),
+                                               SizedBox(width: width*0.02,),
+                                                RatingBar(
+                                                  initialRating: 0,
+                                                  direction: Axis.horizontal,
+                                                  allowHalfRating: true,
+                                                  itemCount: 5,
+                                                  itemSize: width * 0.06,
+                                                  ignoreGestures: true,
+                                                  ratingWidget: RatingWidget(
+                                                    full: Icon(
+                                                      Icons.star,
+                                                      color: amber,
+                                                    ),
+                                                    half: Icon(
+                                                      Icons.star_half,
+                                                      color: amber,
+                                                    ),
+                                                    empty: Icon(
+                                                      Icons.star_outline_sharp,
+                                                      color: amber,
+                                                    ),
+                                                  ),
+                                                  itemPadding: EdgeInsets.zero,
+                                                  onRatingUpdate: (rating) {},
+                                                ),
+                                                SizedBox(width: width*0.02,),
+                                                Text(
+                                                  '(0)',
+                                                  style:theme. textTheme.labelMedium,
+                                                ),
+                                              ],
+                                            );
+                                          } else {
+                                            return Row(
+                                              children: [
+                                                Text(
+                                                  '0.0',
+                                                  style: theme. textTheme.labelMedium!
+                                                      .copyWith(color: teal),
+                                                ),
+                                               SizedBox(width: width*0.02,),
+                                                RatingBar(
+                                                  initialRating: 0,
+                                                  direction: Axis.horizontal,
+                                                  allowHalfRating: true,
+                                                  itemCount: 5,
+                                                  itemSize: width * 0.06,
+                                                  ignoreGestures: true,
+                                                  ratingWidget: RatingWidget(
+                                                    full: Icon(
+                                                      Icons.star,
+                                                      color: amber,
+                                                    ),
+                                                    half: Icon(
+                                                      Icons.star_half,
+                                                      color: amber,
+                                                    ),
+                                                    empty: Icon(
+                                                      Icons.star_outline_sharp,
+                                                      color: amber,
+                                                    ),
+                                                  ),
+                                                  itemPadding: EdgeInsets.zero,
+                                                  onRatingUpdate: (rating) {},
+                                                ),
+                                                SizedBox(width:width* 0.02,),
+                                                Text(
+                                                  '(0)',
+                                                  style: theme.textTheme.labelMedium,
+                                                ),
+                                              ],
+                                            );
+                                          }
+                                        }),
+                                   
                                       SizedBox(
                                         height: height * 0.01,
                                       ),

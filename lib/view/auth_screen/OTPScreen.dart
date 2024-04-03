@@ -34,96 +34,98 @@ class _OTPScreenState extends State<OTPScreen> {
           height: height * 0.5,
         ),
       ),
-      body: SafeArea(
-        child: Container(
-          height: height,
-          width: width,
-          padding: EdgeInsets.symmetric(
-            horizontal: width * 0.03,
-            vertical: height * 0.02,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Authentication Required',
-                style: textTheme.displayMedium!.copyWith(
-                  fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Container(
+            height: height,
+            width: width,
+            padding: EdgeInsets.symmetric(
+              horizontal: width * 0.03,
+              vertical: height * 0.02,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Authentication Required',
+                  style: textTheme.displayMedium!.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: height * 0.01,
-              ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: widget.mobileNumber,
-                      style: textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.bold,
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: widget.mobileNumber,
+                        style: textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
+                      TextSpan(
+                        text: ' Change',
+                        style: textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                Text(
+                  'We have send a One Time Password (OTP) to the mobile no. above. Please enter it to complete verification.',
+                  style: textTheme.bodyMedium,
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                CustomTextField(
+                    height: height * 0.06,
+                    width: width * 0.9,
+                    mobileController: otpController,
+                    hintText: 'Enter OTP'),
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                CustomButton(
+                    ontap: () {
+                      AuthServices.verifyOTP(
+                        context: context,
+                        otp: otpController.text.trim(),
+                      );
+                    },
+                    child: Text(
+                      'Verify',
+                      style: theme.textTheme.displaySmall,
                     ),
-                    TextSpan(
-                      text: ' Change',
-                      style: textTheme.bodyMedium,
+                    color: amber,
+                    height: height * 0.06,
+                    width: width * 0.9),
+                SizedBox(
+                  height: height * 0.01,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Resend OTP',
+                        style: textTheme.bodyMedium!.copyWith(
+                          color: blue,
+                        ),
+                      ),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Text(
-                'We have send a One Time Password (OTP) to the mobile no. above. Please enter it to complete verification.',
-                style: textTheme.bodyMedium,
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              CustomTextField(
-                  height: height * 0.06,
-                  width: width * 0.9,
-                  mobileController: otpController,
-                  hintText: 'Enter OTP'),
-              SizedBox(
-                height: height * 0.01,
-              ),
-              CustomButton(
-                  ontap: () {
-                    AuthServices.verifyOTP(
-                      context: context,
-                      otp: otpController.text.trim(),
-                    );
-                  },
-                  child: Text(
-                    'Verify',
-                    style: theme.textTheme.displaySmall,
-                  ),
-                  color: amber,
-                  height: height * 0.06,
-                  width: width * 0.9),
-              SizedBox(
-                height: height * 0.01,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Resend OTP',
-                      style: textTheme.bodyMedium!.copyWith(
-                        color: blue,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              BottomAuthScreen(width: width, height: height)
-            ],
+                SizedBox(
+                  height: height * 0.02,
+                ),
+                BottomAuthScreen(width: width, height: height)
+              ],
+            ),
           ),
         ),
       ),

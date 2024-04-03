@@ -8,6 +8,7 @@ import 'package:amazon_clone/controller/provider/users_product_provider/users_pr
 import 'package:amazon_clone/firebase_options.dart';
 import 'package:amazon_clone/utils/theme.dart';
 import 'package:amazon_clone/view/auth_screen/SingnIn_Logic.dart';
+import 'package:amazon_clone/view/auth_screen/auth_screens.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -42,12 +43,13 @@ class AmazonApp extends StatelessWidget {
       child: MaterialApp(
         theme: theme,
         debugShowCheckedModeBanner: false,
-        home:  const SignInLogic()
+        // home:  const SignInLogic()
         // home:const UserBottomNavBar(),
         // home: const UserDataInputScreen(),
         // home: const AdressScreen(),
         // home: const SellerBootomNavBar(),
         // home: const AddProductsScreen(),
+        home: const AuthScreen(),
       ),
     );
   }

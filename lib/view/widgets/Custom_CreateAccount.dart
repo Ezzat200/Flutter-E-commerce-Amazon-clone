@@ -324,7 +324,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                 style: textTheme.bodyMedium!
                                     .copyWith(fontWeight: FontWeight.bold)),
                             TextSpan(
-                                text: 'Alredy a account? ',
+                                text: 'Alredy an account? ',
                                 style: textTheme.bodyMedium)
                           ],
                         ),

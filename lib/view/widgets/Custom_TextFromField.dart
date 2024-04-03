@@ -3,6 +3,7 @@ import 'package:amazon_clone/utils/colors.dart';
 import 'package:amazon_clone/utils/theme.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -25,11 +26,13 @@ class CustomTextField extends StatelessWidget {
       height: height,
       width: width ,
       child: TextFormField(
+        keyboardAppearance: Brightness.dark,
+        keyboardType:TextInputType.text,
         readOnly: readOnly,
         controller: mobileController,
         cursorColor: black,
         style: theme.textTheme.bodySmall,
-        keyboardType: TextInputType.number,
+        // keyboardType: TextInputType.number,
         decoration: InputDecoration(
           hintText: hintText,
           

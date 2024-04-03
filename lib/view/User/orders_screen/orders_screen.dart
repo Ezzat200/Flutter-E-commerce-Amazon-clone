@@ -37,6 +37,14 @@ class _OrdersScreenState extends State<OrdersScreen> {
           ),
           child: Row(
             children: [
+               IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.arrow_back,
+                          color: black,
+                        )),
               Image(
                 image: const AssetImage(
                   'assets/images/amazon_black_logo.png',

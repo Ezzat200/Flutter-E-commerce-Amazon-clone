@@ -91,7 +91,7 @@ class _UserDataInputScreenState extends State<UserDataInputScreen> {
                 height: height * 0.01,
               ),
               CustomTextField(
-                readOnly: true,
+                // readOnly: true,
                 height: height * 0.09,
                 width: width * 0.9,
                 mobileController: phoneController,
